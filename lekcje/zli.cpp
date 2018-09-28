@@ -10,7 +10,8 @@ bool isPalindrome(string word){
     return true;
 }
 
-uint32_t letters[100];
+uint32_t upper[100];
+uint32_t lower[100];
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -20,18 +21,28 @@ int main(){
     uint32_t n;
 
     cin >> n;
+    cin.ignore();
     for (uint32_t i = 0; i < n; i++){
-        cin.ignore();
         string text;
         getline(cin, text);
 
         for (char c : text){
-            letters[c-'a']++;
+            if (c >= 'a' and c <= 'z'){
+                lower[c-'a']++;
+            }
+            else if (c >= 'A' and c <= 'Z'){
+                upper[c-'A']++;
+            }
         }
     }
     for (uint32_t i = 0; i < 100; i++){
-        if (letters[i] > 0){
-            cout << char(i + 'a') << ' ' << letters[i] << "\n";
+        if (lower[i] > 0){
+            cout << char(i + 'a') << ' ' << lower[i] << "\n";
+        }
+    }
+    for (uint32_t i = 0; i < 100; i++){
+        if (upper[i] > 0){
+            cout << char(i + 'A') << ' ' << upper[i] << "\n";
         }
     }
 
