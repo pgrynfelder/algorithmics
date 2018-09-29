@@ -27,7 +27,7 @@ void bfs(){
 
 int main(){
 	int n; // wierzcholki vertices
-	int m; // krawedzie 
+	int m; // krawedzie edges 
 	
 	cin >> n >> m;
 	for (int i = 0; i < m; i++){
