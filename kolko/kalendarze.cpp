@@ -8,7 +8,7 @@ uint32_t b[1000000+8];
 uint32_t suma[1000000+8];
 uint32_t sumb[1000000+8];
 
-uint32_t a2b(uint32_t day, uint32_t month, uint32_t m)
+void a2b(uint32_t day, uint32_t month, uint32_t m)
 {
     uint32_t days = suma[month-1] + day;
 
@@ -28,7 +28,7 @@ uint32_t a2b(uint32_t day, uint32_t month, uint32_t m)
     cout << days - sumb[begin-1] << " " << begin << "\n";
 }
 
-uint32_t b2a(uint32_t day, uint32_t month, uint32_t n)
+void b2a(uint32_t day, uint32_t month, uint32_t n)
 {
     uint32_t days = sumb[month-1] + day;
 
@@ -86,6 +86,6 @@ int main()
             b2a(day, month, n);
         }
     }
-    
+    return 0;
     
 }
