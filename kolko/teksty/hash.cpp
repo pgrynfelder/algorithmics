@@ -18,6 +18,20 @@ using namespace std;
  * prefix hashing
  *
  */
+typedef long long ll;
+
+ll h(string &s){
+    ll result = 0;
+    ll base = 1;
+
+    for (int i = s.size() - 1; i >= 0; i--){
+        result = (result + (s[i]*base) % m) % m;
+        base = (base * b) % m;
+    }
+    return result;
+}
+
+
 int main(){
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
