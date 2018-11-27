@@ -1,0 +1,42 @@
+from turtle import *
+def puzzlepart(n):
+    pd()
+    lt(90)
+    fd(n/2); rt(90)
+    fd(n); lt(90)
+    fd(n); rt(90)
+    fd(n); lt(90)
+    fd(n); rt(90)
+    fd(n); rt(90)
+    fd(n); lt(90)
+    fd(n); rt(90)
+    fd(n); rt(90)
+    fd(n); lt(90)
+    fd(n); lt(90)
+    fd(n); rt(90)
+    fd(2*n); rt(90)
+    fd(n); rt(90)
+    fd(n); lt(90)
+    fd(n); lt(90)
+    fd(n); rt(90)
+    fd(n); rt(90)
+    fd(2*n); lt(90)
+    fd(n); rt(90)
+    fd(n/2); rt(90)
+    pu()
+    
+def piramida2(h):
+    pu()
+    nwidth = 400 / (4 + (h-1) * 3)
+    for i in range(1,h+1, 2):
+        bk(i * nwidth * 3/2)
+        for _ in range(i):
+            puzzlepart(nwidth)
+            fd(nwidth * 3)
+        bk(i * nwidth * 3/2)
+        lt(90)
+        bk(4 * nwidth)
+        rt(90)
+
+speed(0)
+piramida2(3)
