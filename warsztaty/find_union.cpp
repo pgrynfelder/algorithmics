@@ -3,7 +3,7 @@
 using namespace std;
 
 struct fu {
-	int repr, 
+	int repr;
 	int rozm;
 };
 
@@ -16,8 +16,8 @@ int Find(int w){
 }
 
 void Union(int a, int b){
-	a = find(a);
-	b = find(b);
+	a = Find(a);
+	b = Find(b);
 	if(FU[a].rozm > FU[b].rozm){
 		FU[b].repr = a;
 		FU[a].rozm += FU[b].rozm;
