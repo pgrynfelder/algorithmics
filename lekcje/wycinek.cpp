@@ -4,8 +4,7 @@ using namespace std;
 
 typedef long long ll;
 
-unordered_map<int,int> m;
-ll s[1000007];
+unordered_map<ll,int> m;
 
 int main(){
 	ios_base::sync_with_stdio(0);
@@ -13,33 +12,30 @@ int main(){
 	cout.tie(0);
 	int n, k;
 	cin >> n >> k;
+	m.reserve(n);
 	m[0] = 0;
+
+	int maxlen = 0;
+	ll previous = 0, current = 0;
 	for (int i = 1; i <= n; i++){
-		cin >> s[i];
+		cin >> current;
 	//	cout << "_" << s[i];
-		s[i] += s[i-1];
-		if (m.count(s[i]) == 0){
-			m[s[i]] = i;
+		current += previous;
+		if (m.count(current) == 0){
+			m[current] = i;
 		}
 		else {
-			m[s[i]] = min(m[s[i]], i);
+			m[current] = min(m[current], i);
 		}
-	}
-	int maxlen = 0;
-	for (int i = 1; i <= n; i++){
-		if (m.count(s[i]-k)==1){
-			maxlen = max(maxlen, i - m[s[i]-k]);
+		
+		if (m.count(current-k)==1){
+			maxlen = max(maxlen, i - m[current-k]);
 		}
+		previous = current;
 	}
 	//for(unordered_map<ll,int>::iterator ii=m.begin();ii!=m.end(); ii++) cout<<(ii->first)<<' '<<(ii->second)<<'\n';
 	if (maxlen <= 0){
 	        cout << "BRAK\n";
-	}
-	else if (maxlen == 786597){
-		for (int i = 1; i <= n; i++){
-			cout << '_' << s[i] - s[i-1];
-		}
-		cout << '_' << k << '\n';
 	}
 	else {
 		cout << maxlen << '\n';
