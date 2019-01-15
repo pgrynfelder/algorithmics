@@ -4,8 +4,21 @@ using namespace std;
 
 typedef long long ll;
 
-unordered_map<int,int> m;
+vector<pair<ll, int>> v;
 ll s[1000007];
+
+int bs(int l, int r, ll x){
+    while (l < r){
+        int m = (l+r)/2;
+        if (v[m].first < x){
+            l = m + 1;
+        }
+        else {
+            r = m;
+        }
+    }
+    return l;
+}
 
 int main(){
 	ios_base::sync_with_stdio(0);
@@ -13,34 +26,30 @@ int main(){
 	cout.tie(0);
 	int n, k;
 	cin >> n >> k;
-	m[0] = 0;
+    v.push_back({0, 0});
 	for (int i = 1; i <= n; i++){
 		cin >> s[i];
 	//	cout << "_" << s[i];
 		s[i] += s[i-1];
-		if (m.count(s[i]) == 0){
-			m[s[i]] = i;
-		}
-		else {
-			m[s[i]] = min(m[s[i]], i);
-		}
+        v.push_back({s[i], i});
 	}
+    sort(v.begin(), v.end());
 	int maxlen = 0;
 	for (int i = 1; i <= n; i++){
-		if (m.count(s[i]-k)==1){
-			maxlen = max(maxlen, i - m[s[i]-k]);
-		}
+		auto x = v[bs(0, v.size(), s[i] - k)];
+        if (x.first == s[i] - k){
+		    maxlen = max(maxlen, i - x.second);
+        }
 	}
-	//for(unordered_map<ll,int>::iterator ii=m.begin();ii!=m.end(); ii++) cout<<(ii->first)<<' '<<(ii->second)<<'\n';
 	if (maxlen <= 0){
 	        cout << "BRAK\n";
 	}
-	else if (maxlen == 786597){
+	/*else if (maxlen == 786597){
 		for (int i = 1; i <= n; i++){
 			cout << '_' << s[i] - s[i-1];
 		}
 		cout << '_' << k << '\n';
-	}
+	}*/
 	else {
 		cout << maxlen << '\n';
 	}	
