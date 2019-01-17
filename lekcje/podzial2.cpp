@@ -20,10 +20,16 @@ int main(){
         s[i] = s[i-1]+t[i];
         //cout << "_" << t[i];
     }
-    int i = 1, j = 1, current = 0, result = 0;
-    if (t[i]%k!=0){current++;}
+    int i = 1, j = 0, current = 0, result = 0;
     while (i <= n and j <= n){
-        if (t[j+1]%k!=0 and current + 1 > b){
+        if (i > j){
+            j++;
+            if (j > n){break;}
+            if (t[j]%k!=0){
+                current++;
+            }
+        }
+        else if (t[j+1]%k!=0 and current + 1 > b){
             if (t[i]%k!=0){
                 current--;
             }
