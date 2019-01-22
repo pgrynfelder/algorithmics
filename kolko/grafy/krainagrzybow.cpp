@@ -6,7 +6,7 @@ vector<int32_t> G[2000007];
 bitset<2000007> visited;
 vector<int32_t> s;
 int32_t possibilities[2000007];
-
+// zrobic bez dfsa to bedzie sto
 void dfs(int32_t v){
     if (visited[v]) return;
     visited[v] = true;
