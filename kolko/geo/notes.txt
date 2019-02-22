@@ -28,16 +28,3 @@ cofamy sie az bedzie po prawej stronie rozpatrywaego odcinka wywalajac wszsytkie
 pole trojkata z dowolnego punktu, bierzemy + jak nowszy na prawo od starszy katowo, - jak na lewo
 
 
-
-10 z oma pzdr
-
-x^2 | x mod 8
-0 0
-1 1
-4 4
-9 1
-16 0
-25 1
-...
-reszty zawsze 0 lub 4, wiec 4 | kazda z liczb
-rownanie /= 4 while 8 | right
