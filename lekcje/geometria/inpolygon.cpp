@@ -76,7 +76,7 @@ int main(){
 		v p, inf;
 		int crossings = 0;
 		cin >> p.x >> p.y;
-		inf.x = INT_MAX; 
+		inf.x = 1e9+1; 
 		inf.y = p.y + 1;
 		int result;
 		for (int i = 0; i < nodes.size(); i++){
