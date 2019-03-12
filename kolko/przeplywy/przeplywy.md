@@ -85,4 +85,7 @@ bierzemy wiercholki do V1
 i robimy kopie V2
 jezeli byla krawedz a->b, to robimy teraz krawedz a->b'
 do v1 laczymy s, do v2 t
-wszystkie krawedzie dajemy 1s
+wszystkie krawedzie dajemy 1
+
+jesli istnieje doskonale skojarzenie
+to znaczy ze tworzy nam proste cykle
