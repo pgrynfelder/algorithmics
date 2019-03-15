@@ -1,3 +1,5 @@
+# Przepływy
+
 siec przeplywowa = graf skierowany
 s - zrodlo
 t - ujscie
@@ -13,9 +15,10 @@ All (u,v) in E: f(u,v) <= c(u,v)
 All (u,v) in E: f(u,v) = -f(v,u)
 All v in V\{s,t}: sum(w in V, f(v, w) = 0)
 
-ALGOS
+## ALGOS
 
-*jakis chamski zachlan (Forda-Fulkersona) O(f \* E)*
+
+**jakis chamski zachlan (Forda-Fulkersona) O(f \* E)**
 1. f na poczatku 0
 2. dopoki istnieje sciezka powiekszajaca p szukamy jej dfsem\
 powiekszam f na p o min(cf) na sciezce
@@ -40,17 +43,17 @@ dla krawedzi 5
 0 -> 4
 
 
-*Algrytm Edmondsa-Carpa O(E\*E\*V)* 
+**Alogrytm Edmondsa-Carpa O(E\*E\*V)**
 1. to samo tylko z bfsem, dzieki czemu scizki sa najkrotsze, wiec zrobi sie smieszen
 
-*Algorytm Dinnicka*
+**Algorytm Dinnicka**
 todo
 
-*Przeplywy na grafie nieskierowanym*
+**Przeplywy na grafie nieskierowanym**
 Tworzymy graf ktory ma kraweedzie skierowane we dwie strony z ok warotsciami
 i usuwamy wszystkie cykle dlugosci 2???
 
-*other*
+**other**
 wezmy se graf nieskierowany
 zamieniamy wierzcholki na krawedzie, a krawedzie miedzy nimi na krawedzie od poczatku jednego do konca drugiego i vce versa
 krawedzie z wierzcholkow niech maja wagi 1, reszta  +inf
@@ -62,14 +65,14 @@ i to przeciecie to bedzie przeplyw max XD*
 kazdy przeplyw mozna przedstawic jako jakas sciezke i cykle proste*
 
 
-*dobra graf nieskierowany*
+**dobra graf nieskierowany**
 wezmy se graf nieskierowany
 rozbijamy se na skierowany
 i idziemy algosem 2.
 jak idziemy po krawedzi w druga strone miedzy wirzcholkami gdzie juz bylismy to je wyrzucamy
 i to dziala bo tam byl bfs wiec najkrotsze xD
 
-*jak to wykorzystac do skojarzen???*
+**jak to wykorzystac do skojarzen???**
 wezmy se graf dwudzielny
 chcemy miec maks skojarzenia
 wsszystko sie cisnie na to zeby sobie zrobic taka se mila konstrukcje
@@ -78,7 +81,7 @@ i zeby zrobic skojarzenia
 to skierujmy od V1 do V2 krawedzie (+inf chyba)
 zrodlo se doczepiamy do V1 a ujscie do V2 i XD krawedziami 1
 
-*zadans fajny*
+**zadans fajny**
 mamy graf i chcemy pokryc go cyklami prostymi jak najbardziej
 
 bierzemy wiercholki do V1
