@@ -92,3 +92,10 @@ wszystkie krawedzie dajemy 1
 
 jesli istnieje doskonale skojarzenie
 to znaczy ze tworzy nam proste cykle
+
+
+**DINNICK**
+
+1. bfs chodzimy tylko po sciezkach z przepustowoscia > 0 i numerujemy warstwy
+2. puszczamy dfsy ktore ida do nizszej warstwy
+3. powtarzamy 1. i 2. do skutku
