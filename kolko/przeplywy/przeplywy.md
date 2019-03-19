@@ -99,3 +99,7 @@ to znaczy ze tworzy nam proste cykle
 1. bfs chodzimy tylko po sciezkach z przepustowoscia > 0 i numerujemy warstwy
 2. puszczamy dfsy ktore ida do nizszej warstwy
 3. powtarzamy 1. i 2. do skutku
+
+**Skojarzenia Dinnickiem**
+1. zrodlo, ujscie, wszystkie krawedzie na 1
+2. i jakies smieszne krawedzie z powrotem od ujscia pod v2  pod v1 i do s
