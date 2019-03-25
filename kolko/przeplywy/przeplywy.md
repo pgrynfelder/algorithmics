@@ -102,4 +102,4 @@ to znaczy ze tworzy nam proste cykle
 
 **Skojarzenia Dinnickiem**
 1. zrodlo, ujscie, wszystkie krawedzie na 1
-2. i jakies smieszne krawedzie z powrotem od ujscia pod v2  pod v1 i do s
+2. i jakies smieszne krawedzie z powrotem od ujscia z v2 do pod v1 i do s
