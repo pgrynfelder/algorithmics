@@ -22,10 +22,7 @@ struct pstack{
     int n = 1;
     pstack(){
         t = new node[200007];
-        t[0] = node();
-        t[0].placeholder = 0;
-        t[0].value = -1;
-        t[0].next = t;
+        t[0] = node(-1, t, 0);
     }
 
     void add(int x){

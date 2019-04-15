@@ -10,12 +10,21 @@ int main(){
     cout.tie(0);
 
     int q;
+    int result = 0;
     cin >> q;
+    s.push(-1);
     while (q-->0){
         int _a, a;
         cin >> _a >> a;
-
-
+        while(a < s.top()){
+            s.pop();
+            result++;
+        }
+        if (a != s.top()){
+            s.push(a);
+        }
     }
+    result += s.size();
+    cout << result - 1 << '\n';
     return 0;
 }

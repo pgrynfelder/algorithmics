@@ -4,8 +4,7 @@
             "name": "Win64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/msys64/mingw64/include/c++/8.3.0/x86_64-w64-mingw32",
-                "C:/msys64/mingw64/include/c++/8.2.0/x86_64-w64-mingw32"
+                "C:/msys64/mingw64/include/c++/8.3.0/x86_64-w64-mingw32"
             ],
             "defines": [
                 "_DEBUG",
