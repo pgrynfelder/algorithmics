@@ -14,7 +14,19 @@ int main(){
 		seq.push_back(a);
 	}
 	const int n = seq.size();	
-	vector<bool> can(n+1, false); // can a sequence begin there
+	vector<bool> can(n+1e6+7, false); // can a sequence begin there
+	stack<int> result;
 	can[n] = true;
+	result.push(n);
+	for (int i = n - 1; i > 0; i--){
+		if (can[i + seq[i] + 1]){
+			can[i] = true;
+			result.push(i);
+		}
+	}
+	while (!result.empty()){
+		cout << result.top() << ' ';
+		result.pop();
+	}
 	return 0;
 }
