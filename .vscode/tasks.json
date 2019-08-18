@@ -12,6 +12,19 @@
             ],
             "options": {
                 "cwd": "/usr/bin"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "run",
+            "command": "${fileDirname}/${fileBasenameNoExtension}",
+            "problemMatcher": [],
+            "presentation": {
+            "focus": true
             }
         }
     ],
