@@ -1,10 +1,12 @@
 #!/bin/bash
+
+echo "Działa dobrze." > drzewobrut
 for ((i = 1; i > -1; i++))
 do
-    echo $i > drzewo.i
+    echo $i > drzewoi
     ./testowaniedrzewo < drzewoi > drzewoin
     ./drzewo < drzewoin > drzewoout
-    if diff drzewoout dzialaout > /dev/null
+    if diff drzewoout drzewobrut > /dev/null
     then
         continue
     else
