@@ -5,18 +5,35 @@ using namespace std;
 int w, h, t;
 int G[2007][2007];
 
-bool bfs(){
-    queue<pair<int,int>> Q;
+template<typename T>
+struct stck {
+    vector<T> elems;
+    void push(T a){
+        elems.push_back(a);
+    }
+    void pop(){
+        elems.pop_back();
+    }
+    T top(){
+        return *elems.end();
+    }
+    bool empty(){
+        return !(elems.size() > 0);
+    }
+};
+
+bool dfs(){
+    stck<pair<int,int>> Q;
     
     Q.push({1, h});
     while (!Q.empty()){
-        int x = Q.front().first, y = Q.front().second;
+        int x = Q.top().first, y = Q.top().second;
         Q.pop();
         if (G[x][y] == t){
             continue;
         }
         G[x][y] = t;
-        vector<pair<int,int>> candidates = {{x,y+1},{x,y-1},{x-1,y},{x+1,y}};
+        vector<pair<int,int>> candidates = {{x-1,y},{x,y-1},{x+1,y},{x,y+1}};
         for (auto nbh : candidates){
             if (G[nbh.first][nbh.second] != 2137 and nbh.second >= t){
                 Q.push(nbh);
@@ -30,7 +47,7 @@ int bs(int l, int r){
     while (l < r){
         int mid = (l+r)/2;
         t = mid;
-        if (bfs()){
+        if (dfs()){
             l = mid + 1;
         }
         else {
@@ -62,12 +79,12 @@ int main(){
         G[w+2][y] = -1;
     }
 
-    int result = bs(0,2007);
-    if (result - 2 < 0){
+    int result = bs(0,2007) - 2;
+    if (result < 0){
         cout << "NIE\n";
     }
     else {
-        cout << result-2 << '\n';
+        cout << result << '\n';
     }
     
     return 0;

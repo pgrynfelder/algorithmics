@@ -6,6 +6,7 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-Wall",
+                "-D_GLIBCXX_DEBUG=1",
                 "-g",
                 "${file}",
                 "-o",
