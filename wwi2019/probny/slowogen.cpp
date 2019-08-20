@@ -12,8 +12,8 @@ int main(){
     cin.tie(0);
     cout.tie(0);
     string alpha = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
-    int seed = 240;
-    //cin >> seed;
+    int seed;// = 240;
+    cin >> seed;
     srand(seed);
     random_shuffle(alpha.begin(), alpha.end());
     int n = randrange(1, 62);
