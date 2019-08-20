@@ -1,17 +1,6 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-/* wypracowanie prawo autorskie
- * prawo, tworca, dzielo, prawa osobiste, majatkowe, prawo polskie i ue
- * skupic sie na publikowaniu w internecie
- *
- * oraz
- *
- * zagrozenia wynikajace z korzystania z internetu
- * 
- * w wordie
- */
-
 
 // t - tekst
 // w - wzorzec
