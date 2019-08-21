@@ -6,7 +6,7 @@ do
     ./wormsgen < wormsi > wormsin
     ./wormsy2 < wormsin > worms2out
     ./wormsy6 < wormsin > worms3out
-    if diff worms3out worms2out > /dev/null
+    if diff -bew worms3out worms2out > /dev/null
     then
         continue
     else

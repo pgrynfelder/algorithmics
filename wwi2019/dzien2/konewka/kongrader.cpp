@@ -15,6 +15,7 @@
 
 #include <cstdio>
 #include "koninc.h"
+#include "kon.cpp"
 
 const int MAXN = 300000;
 

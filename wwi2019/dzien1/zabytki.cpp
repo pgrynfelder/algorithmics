@@ -7,26 +7,6 @@ struct nbh {
     int t;
 };
 
-vector<vector<nbh>> G;
-vector<int> visited;
-int t;
-
-bool dfs(int u){
-    visited[u] = 1;
-    for (nbh v : G[u]){
-        if (v.t <= t){
-            if (visited[v.i] == 1){
-                return true;
-            }
-            if (dfs(v.i) == true){
-                return true; 
-            }
-        }
-    }
-    visited[u] = 2;
-    return false;
-}
-
 bool cycle(){
     for (int u = 1; u < visited.size(); u++){
         if (visited[u] == 0){

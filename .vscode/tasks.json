@@ -6,7 +6,14 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-Wall",
-                "-D_GLIBCXX_DEBUG=1",
+                //"-Wextra",
+                //"-Wconversion",
+                //"-std=c++11",
+                //"-Wshadow",
+                //"Wno-sign-conversion",
+                //"-fno-sanitize-recover=undefined", // stops execution
+                //"-fsanitize=undefined",
+                //"-D_GLIBCXX_DEBUG",
                 "-g",
                 "${file}",
                 "-o",
