@@ -12,7 +12,7 @@ int f(int x){
 	return FU[x];
 }
 
-void u(int x, y){
+void u(int x, int y){
 	int a = f(x), b = f(y);
 	FU[b] = a;
 }
