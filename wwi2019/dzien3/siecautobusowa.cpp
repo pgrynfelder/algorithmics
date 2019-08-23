@@ -1,13 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
+
+typedef long long ll;
 struct edge {
     int w, d, t, o;
     edge (int _w, int _d, int _t, int _o){
         w = _w; d = _d; t = _t; o = _o;
     }
 };
+
+#ifdef _WIN32
+inline int getchar_unlocked() {
+return getchar();
+}
+#endif
+template <typename T> T getczary(){//magia!
+  int ujemna = false, znak = getchar_unlocked();
+  T wynik = (T)0;
+  while(!isdigit(znak)){
+    if(znak == '-')
+      ujemna = true;
+    znak = getchar_unlocked();
+  }
+  while(isdigit(znak)){
+    wynik *= 10;
+    wynik += znak - '0';
+    znak = getchar_unlocked();
+  }
+  if(ujemna)
+    wynik *= -1;
+  return wynik;
+}
+
 vector<vector<edge>> G;
-vector<int> distances;
+vector<ll> distances;
 int n;
 
 int main(){
@@ -15,38 +41,41 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    cin >> n;
+    n = getczary<int>();
     G.resize(n+1);
     distances.resize(n+1);
     for (int i=1; i <= n; i++){
         int m;
-        cin >> m;
+        m = getczary<int>();
         while (m-->0)
         {
             int w, d, t, o;
-            cin >> w >> d >> t >> o;
+            w = getczary<int>(); d = getczary<int>(); t = getczary<int>(); o = getczary<int>();
+            //cin >> w >> d >> t >> o;
             G[i].push_back({w, d, t, o});
         }
         
-        distances[i] = INT_MAX;
+        distances[i] = LONG_LONG_MAX;
     }
 
     distances[1] = 0;
-    priority_queue<pair<int,int>> q;
+    priority_queue<pair<ll,int>> q;
     q.push({-0,1});
     while (!q.empty()){
-        int t = -q.top().first;
+        ll t = -q.top().first;
         int v = q.top().second;
         q.pop();
         if (t > distances[v]) continue;
-        distances[v] = t;
         for (edge e : G[v]){
-            int mod = (e.t-t)%e.o;
+            ll mod = ((ll)e.t-t)%e.o;
             if (mod < 0) mod += e.o;
+            if (mod+e.d+t < distances[e.w]){
             q.push({-(mod+e.d+t), e.w});
+            distances[e.w] = mod+e.d+t;
+            }
         }
     }
-    if (distances[n] == INT_MAX){
+    if (distances[n] == LONG_LONG_MAX){
         cout <<"ARESZT\n";
     }
     else {
