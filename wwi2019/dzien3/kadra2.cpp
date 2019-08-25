@@ -3,6 +3,7 @@ using namespace std;
 
 const int MAXM = 5e5 + 7, MAXN = 1e6 + 7;
 int fau[MAXN];
+bool used[MAXN];
 struct edge {
 	int w, u, v;
 } edges[MAXM];
@@ -22,7 +23,6 @@ int main() {
 	
 	int n = 0, m, u, v, w;
 	long long res = 0;
-	bool used = 0;
 	cin >> m;
 	for(int i = 1; i <= m; ++i) {
 		cin >> w >> u >> v;
@@ -36,18 +36,25 @@ int main() {
 	}
 	sort(edges + 1, edges + 1 + m,
 	[&](const edge e0, const edge e1) {
-		return e0.w >= e1.w;
+		return e0.w > e1.w;
 	});
 	
 	for(int i = 1; i <= m; ++i) {
-		if(Find(edges[i].u) == Find(edges[i].v)) {
-			if(!used) {
-				used = 1;
+		u = Find(edges[i].u);
+		v = Find(edges[i].v);
+		if(u == v) {
+			if(!used[u]) {
+				used[u] = 1;
 				res -= edges[i].w;
 			}
 		}
-		else {
-			fau[fau[edges[i].u]] = fau[edges[i].v];
+		else if(!used[u] && !used[v]) {
+			fau[u] = v;
+			res -= edges[i].w;
+		}
+		else if(!(used[u] && used[v])) {
+			fau[u] = v;
+			used[v] = 1;
 			res -= edges[i].w;
 		}
 	}
