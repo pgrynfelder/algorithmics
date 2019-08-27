@@ -26,7 +26,8 @@ struct tree {
 
     int find(T x){
         int i = 1;
-        while (i < n){
+        if (elements[i] < x) return -2;
+        while (i < n) {
             if (elements[i*2] >= x){
                 i = i * 2;
             }
@@ -36,7 +37,7 @@ struct tree {
             else {
                 return -2;
             }
-        }
+        };
         return i - n;
     }
 
@@ -69,9 +70,10 @@ int main(){
         int a;
         cin >> a;
         int i = T.find(a);
-        T.add(i, -a);
+        if (i != -2) T.add(i, -a);
         cout << i + 1 << ' ';
     }
+    cout << '\n';
     return 0;
 }
 /* 

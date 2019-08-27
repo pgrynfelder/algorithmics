@@ -2,25 +2,32 @@
 using namespace std;
 
 vector<vector<int>> G;
-vector<int> subtree;
 vector<int> sorted;
 vector<int> parent;
-int n, s;
+int n, s, last_working_k;
 
 int solve(int k){
-    auto current_subtree = subtree;
-    vector<int> topropagate(n+1);
+    vector<int> subtree(n+1);
     int result = 0;
 
     for (int v : sorted){
-        if (current_subtree[v] >= k){
+        subtree[v] = 1;
+        for (int u : G[v]){
+            if (u != parent[v]){
+                subtree[v] += subtree[u];
+            }
+        }
+        if (subtree[v] >= k){
+            subtree[v] = 0;
             result++;
-            current_subtree[parent[v]] -= current_subtree[v];
-            current_subtree[v] = 0;
         }
     }
-    return result >= s;
-};
+    if (result >= s){
+        last_working_k = k;
+        return true;
+    }
+    return false;
+}
 
 int dfs(int v){
     for (int u : G[v]){
@@ -52,7 +59,6 @@ int main(){
     cin >> n >> s;
     G.resize(n+1);
     parent.resize(n+1);
-    subtree.resize(n+1);
 
     for (int i = 1; i < n; i++){
         int a, b;
@@ -63,17 +69,8 @@ int main(){
     
     dfs(1);
 
-    /*for (int v : sorted){
-        subtree[v] = 1;
-        for (int u : G[v]){
-            if (u != parent[v]){
-                subtree[v] += subtree[u];
-            }
-        }
-    }*/
-
-    int result = bs(1,n);
-    cout << result << '\n';
+    bs(0,n+1);
+    cout << last_working_k << '\n';
 
     return 0;
 

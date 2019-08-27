@@ -4,7 +4,13 @@ using namespace std;
 vector<int> degin;
 vector<vector<int>> G;
 vector<int> sorted;
-vector<bool> visited;
+
+class Compare {
+    public:
+    bool operator()(int a, int b){
+        return a > b;
+    }
+};
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -15,36 +21,28 @@ int main(){
     cin >> n >> m;
     G.resize(n+1);
     degin.resize(n+1);
-    visited.resize(n+1);
     while (m--){
         int a, b;
         cin >> a >> b;
         G[a].push_back(b);
         degin[b]++;
     }
-    for (auto &a : G){
-        sort(a.begin(), a.end());
-    }
 
+    priority_queue<int, vector<int>, Compare> q;
     for (int i = 1; i <= n; i++){
-        if (degin[i] == 0 and !visited[i]){
-            queue<int> q;
-            q.push(i);
-            sorted.push_back(i);
-            while(!q.empty()){
-                int v = q.front();
-                q.pop();
-                for (int u : G[v]){
-                    degin[u]--;
-                    if (degin[u] == 0){
-                        q.push(u);
-                        visited[u] = 1;
-                        sorted.push_back(u);
-                    }
-                }
+        if (degin[i] == 0) q.push(i);
+    } 
+    while (!q.empty()){
+        int v = q.top();
+        q.pop();
+        sorted.push_back(v);
+        for (int u : G[v]){
+            degin[u]--;
+            if (degin[u] == 0){
+                q.push(u);
             }
         }
-    } 
+    }
     if (sorted.size() == n){
         cout << "TAK\n";
         for (int v : sorted){
