@@ -3,3 +3,5 @@
 !*.*
 *.exe
 .vscode/ipch
+*.in
+*.out
