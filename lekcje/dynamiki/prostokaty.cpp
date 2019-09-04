@@ -1,30 +1,27 @@
 #include<bits/stdc++.h>
-
 using namespace std;
-typedef long long ll;
-
-struct Rect {
-    int x = 0, y = 0;
-};
 
 int main(){
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
-
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
     int n;
     cin >> n;
-    vector<Rect> rects(n+2);
-    vector<vector<ll>> T(2, vector<ll>(n+2, 0)); // 0 - default oriented, 1 - 90 deg rotated
-    for (int i = 1; i <= n; i++){
-        cin >> rects[i].y;
-        cin >> rects[i].x;
+    int prev1 = 0, prev2 = 0; // 1 height 2 width
+    int current1, current2;
+    long long result1 = 0, result2 = 0; // 1 wasnt rotated, 2 was rotated
+    long long new1 = 0, new2 = 0;
+    while (n--){
+        cin >> current1 >> current2;
+        new1 = max(abs((long long)current1 - prev1) + current2 + result1, abs((long long)current1-prev2) + current2 + result2);
+        new2 = max(abs((long long)current2 - prev1) + current1 + result1, abs((long long)current2-prev2) + current1 + result2);
+        result1 = new1;
+        result2 = new2;
+        prev1 = current1;
+        prev2 = current2;
     }
-    
-    for (int i = 1; i <= n+1; i++){
-        T[0][i] = max(T[0][i-1] + abs(rects[i-1].y - rects[i].y), T[1][i-1] + abs(rects[i-1].x - rects[i].y)) + rects[i].x;
-        T[1][i] = max(T[0][i-1] + abs(rects[i-1].y - rects[i].x), T[1][i-1] + abs(rects[i-1].x - rects[i].x)) + rects[i].y;
-    }
-    cout << max(T[0][n+1], T[1][n+1]) << endl;
-	return 0;
+    cout << max(result1 + current1, result2 + current2) << '\n';
+    return 0;
 }
+
