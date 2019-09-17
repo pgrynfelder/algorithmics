@@ -44,16 +44,8 @@ int main(){
     for (int i = 1; i <= n; i++){
         int result = 0;
         int w = weight[i];
-        for (int j = 0; j <= B+w; j++){
-            if (j >= w and j <= B){
-                result = max(result, DP1[i-1][j] + DP2[i+1][j-w]);
-            }
-            else if (j <= B){
-                result = max(result, DP1[i-1][j]);
-            }
-            else if (j >= w){
-                result = max(result, DP2[i+1][j-w]);
-            }
+        for (int j = 0; j <= B; j++){
+            result = max(result, DP1[i-1][j] + DP2[i+1][B-j]);
         }
         cout << result << ' ';
     }
