@@ -40,6 +40,7 @@ int main(){
     }
 
     dist[maxv] = 0;
+    maxdist = -1;
     dfs(maxv); //cout << '\n';
     for (int i = 1; i <= n; i++){
         if (dist[i] > maxdist){
@@ -48,24 +49,12 @@ int main(){
         }
     }
     cout << maxdist << '\n';
-
+    int v = maxv;
     while (v != 0){
         cout << v << ' ';
         v = p[v];
     }
-    /*
-    int v = maxv;
-    stack<int> result;
-    while (v != 0){
-        result.push(v);
-        v = p[v];
-    }
-    cout << result.size() - 1 << '\n';
-    while (!result.empty()){
-        cout << result.top() << ' ';
-        result.pop();
-    }
-    */
+    
     return 0;
 }
 
