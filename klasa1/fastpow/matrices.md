@@ -8,6 +8,6 @@ triv
        [b b b]
        [b b b]
        [b b b]
-[a a a][suma iloczynow 1. a z 1. b itd dla kazdej komorki]
+[a a a] suma iloczynow 1. a z 1. b itd dla kazdej komorki
 [a a a]
 [a a a]
