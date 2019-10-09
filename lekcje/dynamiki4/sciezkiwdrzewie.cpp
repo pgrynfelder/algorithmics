@@ -52,15 +52,19 @@ void dfs(int v, int p){
                 for (auto x : counter[u]->values){
                     int len = x.first + counter[u]->c;
                     if (len < k - 1){
-                        // cout << "added paths going through root +" << x.second * counter[v]->get(k - len) << "\n";
+                        // cout << v << " added paths of length " << len << " going through root from " << u << " +" << x.second * counter[v]->get(k - len) << "\n";
                         result += x.second * counter[v]->get(k - len);
                     }
+                }
+                for (auto x : counter[u]-> values){
+                    int len = x.first + counter[u]->c; 
                     counter[v]->add(len+1, x.second);
                 }
             }         
         }
     }
     counter[v] -> add(1, 1);
+ 
     // counter[v] -> print();
 
     result += counter[v]->get(k);
