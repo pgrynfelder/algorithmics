@@ -30,7 +30,7 @@
         {
             "type": "shell",
             "label": "run",
-            "command": "${fileDirname}/${fileBasenameNoExtension}.o",
+            "command": "${fileDirname}/${fileBasenameNoExtension}.e",
             "problemMatcher": [],
             "presentation": {
             "focus": true
