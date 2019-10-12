@@ -85,7 +85,6 @@ int main(){
     }
     sort(forced.begin(), forced.end());
     // cout << forced[0].first << "\n";
-    cout << "\n";
     for (auto x : forced){
         M xddd = power(m, x.first - pi);
         // xddd.print(); cout << "\n";
