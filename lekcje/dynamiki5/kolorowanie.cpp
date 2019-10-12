@@ -18,7 +18,8 @@ using namespace std;
  *
  */
 const int mod = 1e9 + 33;
-int n, k;
+long long n;
+int k;
 
 struct M {
     vector<vector<int>> tab;
@@ -50,13 +51,14 @@ struct M {
 };
 
 M power(M m, long long n){
-    M res = M(3, 3);
-    res.tab[0][0] = res.tab[1][1] = res.tab[2][2] = 1;
-    for(; n > 0; n >>= 1) {
+    M res = M(m.width, m.height);
+    for (int i = 0; i < res.width; i++) res.tab[i][i] = 1;
+    while (n > 0) {
         if(n & 1) {
             res = res * m;
         }
         m = m * m;
+        n >>= 1;
     }
     return res;
 }
@@ -71,36 +73,29 @@ int main(){
     
     M def = M(1, 3);
     def.tab[0][0] = def.tab[0][1] = def.tab[0][2] = 1;
-    //M def = M(3,1);
-    //def.tab[0][0] = def.tab[1][0] = def.tab[2][0] = 1;
 
     M current = def;
     M previous = def;
     long long pi = 1;
 
-    vector<pair<int, char>> forced(k);
+    vector<pair<long long, char>> forced(k);
     for (int i = 0; i < k; i++){
         cin >> forced[i].first >> forced[i].second;
         forced[i].second -= 'A';
     }
     sort(forced.begin(), forced.end());
-    // cout << forced[0].first << "\n";
     for (auto x : forced){
         M xddd = power(m, x.first - pi);
-        // xddd.print(); cout << "\n";
         current = xddd*previous;
         for (int i = 0; i < 3; i++){
             if (i != x.second) current.tab[0][i] = 0;
         }
-        
-        // current.print(); cout << "\n";
         
         pi = x.first;
         previous = current;
     }
 
     M xddd = power(m, n - pi);
-    // xddd.print(); cout << "\n";
     current = xddd*previous;
     long long result = 0;
     for (int i = 0; i < 3; i++){
