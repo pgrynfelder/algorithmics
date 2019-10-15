@@ -69,19 +69,23 @@ int main(){
             for (int i = 0; i <= k; i++){
                 current[i] = previous[i] + pown;
                 pown = (long long)pown * multiplier % mod; 
+                cout << current[i] << " ";
             } 
         }
         else {
-            int multiplier = n/2 % mod;
+            int multiplier = (n/2) % mod;
             for (int i = 0; i <= k; i++){
                 current[i] = previous[i];
+                //int pown = power(multiplier, i);
                 int pown = 1;
-                for (int j = 0; j <= k; j++){
-                    current[k] = ((long long)current[k] + bc[k][j] * pown % mod * previous[k-j]) % mod;
+                for (int j = 0; j <= i; j++){
+                    current[i] = ((long long)current[i] + bc[i][j] * pown % mod * previous[i-j]) % mod;
                     pown = (long long)pown * multiplier % mod;
                 }
+                cout << current[i] << " ";
             }
         }
+        cout << "\n";
         for (int i = 0; i <= k; i++){
             previous[i] = current[i];
         }
