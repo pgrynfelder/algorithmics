@@ -76,7 +76,7 @@ int main(){
             for (int i = 0; i <= k; i++){
                 current[i] = previous[i];
                 int pown = 1;
-                for (int j = 0; j <= k; i++){
+                for (int j = 0; j <= k; j++){
                     current[k] = ((long long)current[k] + bc[k][j] * pown % mod * previous[k-j]) % mod;
                     pown = (long long)pown * multiplier % mod;
                 }
