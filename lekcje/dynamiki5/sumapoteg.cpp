@@ -50,7 +50,7 @@ int main(){
     calculate_inv();
     calculate_bc();
     
-    stack<int> q;
+    stack<unsigned long long> q;
     while (n > 0){
         q.push(n);
         if (n & 1){
@@ -76,7 +76,7 @@ int main(){
                 current[i] = previous[i];
                 int pown = 1;
                 for (int j = 0; j <= i; j++){
-                    current[i] = (current[i] + (unsigned long long)bc[i][j] * pown % mod * previous[i-j]) % mod;
+                    current[i] = (current[i] + (unsigned long long)bc[i][j] * pown % mod * previous[i-j] % mod) % mod;
                     pown = (unsigned long long)pown * multiplier % mod;
                 }
             }
