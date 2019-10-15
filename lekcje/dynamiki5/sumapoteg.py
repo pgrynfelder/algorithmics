@@ -4,4 +4,4 @@ def s(n, k):
 if __name__ == "__main__":
     i = input().split(" ")
     n = int(i[0]); k = int(i[1])
-    print(s(n, k))
+    print(s(n, k) % (10**9+7))

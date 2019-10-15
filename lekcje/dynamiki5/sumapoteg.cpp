@@ -3,19 +3,19 @@ using namespace std;
 
 const int mod = 1e9 + 7, K = 107;
 int bc[K][K]; /// i choose j (binomial coefficent)
-long long n;
+unsigned long long n;
 int k;
 int inv[K];
 int previous[K];
 int current[K];
 
-int power(int m, long long n){
+int power(int m, unsigned long long n){
     int res = 1;
     while (n > 0) {
         if(n & 1) {
-            res = (long long)res * m % mod;
+            res = (unsigned long long)res * m % mod;
         }
-        m = (long long)m * m % mod;
+        m = (unsigned long long)m * m % mod;
         n >>= 1;
     }
     return res;
@@ -28,10 +28,13 @@ void calculate_inv(){
 }
 
 void calculate_bc(){
+    for (int i = 0; i <= k; i++){
+        bc[i][0] = 1;
+    }
     for (int j = 1; j <= k; j++){
         bc[j][j] = 1;
         for (int i = j + 1; i <= k; i++){
-            bc[i][j] = (((long long)bc[i-1][j] * i) % mod * inv[i - j]) % mod;
+            bc[i][j] = (((unsigned long long)bc[i-1][j] * i) % mod * inv[i - j]) % mod;
         }
     }
 }
@@ -48,7 +51,7 @@ int main(){
     calculate_bc();
     
     stack<int> q;
-    while (n > 1){
+    while (n > 0){
         q.push(n);
         if (n & 1){
             n = n ^ 1;
@@ -57,39 +60,32 @@ int main(){
             n = n >> 1;
         }
     }
-    for (int i = 0; i <= k; i++){
-        previous[i] = 1; // setting for n = 1
-    }
     while (!q.empty()){
         n = q.top(); q.pop();
-        cout << n << "\n"; 
         if (n & 1){
             int multiplier = n % mod;
             int pown = 1;
             for (int i = 0; i <= k; i++){
-                current[i] = previous[i] + pown;
-                pown = (long long)pown * multiplier % mod; 
-                cout << current[i] << " ";
+                current[i] = ((unsigned long long)previous[i] + pown) % mod;
+                pown = (unsigned long long)pown * multiplier % mod; 
             } 
         }
         else {
             int multiplier = (n/2) % mod;
             for (int i = 0; i <= k; i++){
                 current[i] = previous[i];
-                //int pown = power(multiplier, i);
                 int pown = 1;
                 for (int j = 0; j <= i; j++){
-                    current[i] = ((long long)current[i] + bc[i][j] * pown % mod * previous[i-j]) % mod;
-                    pown = (long long)pown * multiplier % mod;
+                    current[i] = (current[i] + (unsigned long long)bc[i][j] * pown % mod * previous[i-j]) % mod;
+                    pown = (unsigned long long)pown * multiplier % mod;
                 }
-                cout << current[i] << " ";
             }
         }
-        cout << "\n";
         for (int i = 0; i <= k; i++){
             previous[i] = current[i];
         }
     }
+
     cout << current[k] << "\n";
     
     
