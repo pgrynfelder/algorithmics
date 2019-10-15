@@ -48,7 +48,7 @@ int main(){
     calculate_bc();
     
     stack<int> q;
-    while (n > 0){
+    while (n > 1){
         q.push(n);
         if (n & 1){
             n = n ^ 1;
@@ -57,9 +57,36 @@ int main(){
             n = n >> 1;
         }
     }
-    while (!q.empty()){
-        cout << q.top() << " "; q.pop();
+    for (int i = 0; i <= k; i++){
+        previous[i] = 1; // setting for n = 1
     }
+    while (!q.empty()){
+        n = q.top(); q.pop();
+        cout << n << "\n"; 
+        if (n & 1){
+            int multiplier = n % mod;
+            int pown = 1;
+            for (int i = 0; i <= k; i++){
+                current[i] = previous[i] + pown;
+                pown = (long long)pown * multiplier % mod; 
+            } 
+        }
+        else {
+            int multiplier = n/2 % mod;
+            for (int i = 0; i <= k; i++){
+                current[i] = previous[i];
+                int pown = 1;
+                for (int j = 0; j <= k; i++){
+                    current[k] = ((long long)current[k] + bc[k][j] * pown % mod * previous[k-j]) % mod;
+                    pown = (long long)pown * multiplier % mod;
+                }
+            }
+        }
+        for (int i = 0; i <= k; i++){
+            previous[i] = current[i];
+        }
+    }
+    cout << current[k] << "\n";
     
     
     return 0;
