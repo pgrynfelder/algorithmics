@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int mod = 1e9 + 7, K = 107;
+int bc[K][K]; /// i choose j (binomial coefficent)
+long long n;
+int k;
+int inv[K];
+int previous[K];
+int current[K];
+
+int power(int m, long long n){
+    int res = 1;
+    while (n > 0) {
+        if(n & 1) {
+            res = (long long)res * m % mod;
+        }
+        m = (long long)m * m % mod;
+        n >>= 1;
+    }
+    return res;
+}
+
+void calculate_inv(){
+    for (int i = 1; i <= k; i++){
+        inv[i] = power(i, mod-2);
+    }
+}
+
+void calculate_bc(){
+    for (int j = 1; j <= k; j++){
+        bc[j][j] = 1;
+        for (int i = j + 1; i <= k; i++){
+            bc[i][j] = (((long long)bc[i-1][j] * i) % mod * inv[i - j]) % mod;
+        }
+    }
+}
+
+/*
+f(2n, k) = f(n, k) + sum(i = 0, i <= k, (k over i) * n^(k-i) * f(n, i))
+f(n+1, k) = f(n, k) + (n+1)^k
+*/
+
+int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    cin >> n >> k;
+    calculate_inv();
+    calculate_bc();
+    
+    stack<int> q;
+    while (n > 0){
+        q.push(n);
+        if (n & 1){
+            n = n ^ 1;
+        }
+        else {
+            n = n >> 1;
+        }
+    }
+    while (!q.empty()){
+        cout << q.top() << " "; q.pop();
+    }
+    
+    
+    return 0;
+}
+
