@@ -17,7 +17,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}.e"
             ],
             "options": {
                 "cwd": "/usr/bin"
@@ -30,7 +30,7 @@
         {
             "type": "shell",
             "label": "run",
-            "command": "${fileDirname}/${fileBasenameNoExtension}",
+            "command": "${fileDirname}/${fileBasenameNoExtension}.e",
             "problemMatcher": [],
             "presentation": {
             "focus": true
