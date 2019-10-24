@@ -1,3 +1,5 @@
+import numpy as np
+
 vowels = set("eyuioa")
 hash_mod = 2**31-1
 hash_base = 1e6 + 133
@@ -5,6 +7,7 @@ hash_base = 1e6 + 133
 
 def depunctuate(text: str) -> str:
     result = []
+    text = text.replace('\n', '')
     words = text.split()
     for word in words:
         result_word = ""
@@ -22,7 +25,8 @@ def stem(text: str) -> str:
     for word in words:
         result_word = ""
         should_add = False
-        for char in word[::-1]:
+        for i in range(len(word) - 2, -1, -1):
+            char = word[i]
             if (char in vowels):
                 should_add = True
             if (should_add):
@@ -32,11 +36,11 @@ def stem(text: str) -> str:
     return " ".join(result)
 
 
-def hash(text: str) -> list:
+def hash(text: str) -> tuple:
     result = []
     words = text.split()
     for word in words:
         result.append(0)
         for char in word:
-            result[-1] = (result[-1] * hash_base + ord(char)) % hash_mod
-    return result
+            result[-1] = int((result[-1] * hash_base + ord(char)) % hash_mod)
+    return tuple(result)
