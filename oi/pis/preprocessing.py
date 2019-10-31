@@ -36,13 +36,17 @@ def stem(text: str) -> str:
     return " ".join(result)
 
 
-def hash(text: str):
+def hash(text: str) -> list:
     result = []
     words = text.split()
     for word in words:
         result.append(0)
         for char in word:
             result[-1] = int((result[-1] * hash_base + ord(char)) % hash_mod)
-    while (len(result) < 2000):
-        result.append(0)
-    return np.array(result)
+    return result
+
+def resize(vector: list, size: int=100) -> list:
+    while len(vector) < size:
+        vector.append(0)
+    return vector[:size]
+    
