@@ -36,11 +36,13 @@ def stem(text: str) -> str:
     return " ".join(result)
 
 
-def hash(text: str) -> tuple:
+def hash(text: str):
     result = []
     words = text.split()
     for word in words:
         result.append(0)
         for char in word:
             result[-1] = int((result[-1] * hash_base + ord(char)) % hash_mod)
-    return tuple(result)
+    while (len(result) < 2000):
+        result.append(0)
+    return np.array(result)
