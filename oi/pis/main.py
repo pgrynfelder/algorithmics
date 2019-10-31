@@ -38,15 +38,13 @@ train_labels = np.array(train_labels, np.float64)
 # ds = tf.data.Dataset.from_tensor_slices((train_examples, train_labels))
 
 ds = tf.data.Dataset.from_tensor_slices((train_examples, train_labels))
-ds.shuffle(1000)
-ds = ds.batch(100)
+
+ds = ds.shuffle(1000).batch(100)
 
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(2000, activation="sgd"),
-    tf.keras.layers.Dense(1000, activation="sgd"),
-    tf.keras.layers.Dense(500, activation="sgd"),
-    tf.keras.layers.Dense(250, activation="sgd"),
-    tf.keras.layers.Dense(125, activation="sgd"),
+    tf.keras.layers.Dense(2000, activation="sigmoid"),
+    tf.keras.layers.Dense(100, activation="sigmoid"),
+    tf.keras.layers.Dense(100, activation="sigmoid"),
     tf.keras.layers.Dense(3, activation="softmax")
 ])
 
