@@ -98,15 +98,15 @@ void prepare_visited(){
     }
 }
 
-void print_visited(){
-    for (int j = n+1; j >= 0; j--){
-        for (int i = 0; i <= m + 1; i++){
-            cout << (int)visited[i][j] << " ";
-        }
-        cout << "\n";
-    }
-    cout << "\n";
-}
+// void print_visited(){
+//     for (int j = n+1; j >= 0; j--){
+//         for (int i = 0; i <= m + 1; i++){
+//             cout << (int)visited[i][j] << " ";
+//         }
+//         cout << "\n";
+//     }
+//     cout << "\n";
+// }
 
 
 void dfs(const int &x, const int &y){
