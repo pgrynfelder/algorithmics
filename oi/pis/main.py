@@ -55,8 +55,10 @@ print("Data preparation finished")
 #
 # train = ds.take(DATASET_SIZE//2)
 # val = ds.skip(DATASET_SIZE//2)
+tf.keras.backend.clear_session()
 model = tf.keras.Sequential([
     tf.keras.layers.Dense(100, activation="sigmoid"),
+    tf.keras.layers.Dense(20, activation="sigmoid"),
     tf.keras.layers.Dense(20, activation="sigmoid"),
     tf.keras.layers.Dense(20, activation="sigmoid"),
     tf.keras.layers.Dense(20, activation="sigmoid"),
