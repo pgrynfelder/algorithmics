@@ -145,4 +145,4 @@ model.compile(
 )
 model.fit(examples, labels, epochs=1000, validation_data=(test_examples, test_labels))
 model.summary()
-model.save("model1.h5")
+model.save("model2.h5")
