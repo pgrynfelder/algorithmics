@@ -11,8 +11,16 @@ vector<pair<int, int>> G[M][N];
 
 struct traverser {
     int x, y, dir; // 0 up 1 left 2 down 3 right
-    bool filling;
+    int hit_count;
     bool fw(){
+        if (hit_count <= 1){
+            return fw_starting();
+        }
+        else {
+            return fw_continuation()
+        }
+    }
+    bool fw_starting(){
         for (int i = 0; i < 4; i++){
             if (dir == 0){
                 if (!visited[x][y+1]){
@@ -51,9 +59,13 @@ struct traverser {
                     return true;
                 }
             }
+            hit_count++;
             dir = (dir + 1) % 4;
         }
         return false;
+    }
+    bool fw_continuation(){
+        
     }
 };
 
