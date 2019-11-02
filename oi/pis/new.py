@@ -39,7 +39,7 @@ def summarize(text: str) -> OrderedDict:
     summary[':'] = text.count(':')
     summary['!'] = text.count('!')
     summary['?'] = text.count('?')
-    summary["usz"] = text.count("usz")
+    summary["us"] = text.count("us")
     sentences = [x for x in text.split(".") if len(x)]
     for letter in alphabet:
         summary[letter] = text.lower().count(letter)
@@ -91,7 +91,7 @@ def dict2vec(summary):
 
 # books = np.array(books).flatten()
 
-tests = [1, 2, 3, 4]
+tests = [4]
 titles = {
     "Sienkiewicz": np.array([0,0,1]), 
     "Mickiewicz": np.array([0,1,0]), 
@@ -114,7 +114,7 @@ for n in tests:
 
 examples = np.array(examples)
 labels = np.array(labels)
-
+DATA_SIZE = examples.shape[1]
 test_examples = []
 test_labels = []
 for n in tests:
@@ -135,7 +135,8 @@ test_labels = np.array(test_labels)
 
 tf.keras.backend.clear_session()
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(60, activation="sigmoid"),
+    tf.keras.layers.Dense(20, input_shape=(60,), activation="sigmoid"),
+    tf.keras.layers.Dense(20, activation="sigmoid"),
     tf.keras.layers.Dense(3, activation="softmax")
 ])
 model.compile(
@@ -145,4 +146,5 @@ model.compile(
 )
 model.fit(examples, labels, epochs=1000, validation_data=(test_examples, test_labels))
 model.summary()
-model.save("model2.h5")
+
+model.save("model.h5")
