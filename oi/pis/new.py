@@ -136,7 +136,6 @@ test_labels = np.array(test_labels)
 tf.keras.backend.clear_session()
 model = tf.keras.Sequential([
     tf.keras.layers.Dense(20, input_shape=(60,), activation="sigmoid"),
-    tf.keras.layers.Dense(20, activation="sigmoid"),
     tf.keras.layers.Dense(3, activation="softmax")
 ])
 model.compile(
