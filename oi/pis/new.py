@@ -5,7 +5,7 @@ from collections import OrderedDict
 from math import sqrt
 import tensorflow as tf
 
-
+# tf.debugging.set_log_device_placement(True)
 def depunctuate(text):
     result = []
     for word in text.split():
@@ -43,8 +43,8 @@ def summarize(text: str) -> OrderedDict:
     sentences = [x for x in text.split(".") if len(x)]
     for letter in alphabet:
         summary[letter] = text.lower().count(letter)
-    for digit in digits:
-        summary[digit] = text.count(digit)
+    # for digit in digits:
+    #     summary[digit] = text.count(digit)
     summary["numbers"] = sum(1 for x in text.split() if x.isnumeric())
     text = depunctuate(text)
     summary["sentences"] = len(sentences)
@@ -91,12 +91,12 @@ def dict2vec(summary):
 
 # books = np.array(books).flatten()
 
-# tests = [1,2,3,4]
 tests = [1,2,3,4]
+# tests = [4]
 titles = {
     "Sienkiewicz": np.array([0,0,1]), 
-    "Mickiewicz": np.array([0,1,0]), 
-    "Prus": np.array([0,0,1])
+    "Mickiewicz": np.array([1,0,0]), 
+    "Prus": np.array([0,1,0])
 }
 
 examples = []
@@ -136,7 +136,7 @@ test_labels = np.array(test_labels)
 
 tf.keras.backend.clear_session()
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(10, input_shape=(60,), activation="sigmoid"),
+    tf.keras.layers.Dense(10, input_shape=(50,), activation="sigmoid"),
     tf.keras.layers.Dense(3, activation="softmax")
 ])
 model.compile(
@@ -147,4 +147,4 @@ model.compile(
 model.fit(examples, labels, epochs=1000, validation_data=(test_examples, test_labels))
 model.summary()
 
-model.save("model3.h5")
+model.save("model50x10x3.h5")
