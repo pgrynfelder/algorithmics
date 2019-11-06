@@ -9,7 +9,7 @@ bool rotated = false;
 
 vector<pair<int, int>> G[M][N];
 
-struct traverser {
+struct turtle {
     int x, y, dir; // 0 up 1 left 2 down 3 right
     int hit_count;
     bool fw(){
@@ -61,7 +61,7 @@ struct traverser {
     }
 };
 
-struct left_traverser {
+struct left_turtle {
     int x, y;
     bool fw(){
         if (not visited[x-1][y]){
@@ -75,7 +75,7 @@ struct left_traverser {
     }
 };
 
-struct right_traverser {
+struct right_turtle {
     int x, y;
     bool fw(){
         if (not visited[x+1][y]){
@@ -109,17 +109,36 @@ void prepare_visited(){
 // }
 
 
-void dfs(const int &x, const int &y){
-    for (auto u : G[x][y]){
-        if (visited[u.first][u.second] != 2){
-            visited[u.first][u.second] = 2;
-            if (!rotated){
-                cout << x << " " << y << " " << u.first << " " << u.second << "\n";
+// void dfs(const int &x, const int &y){
+//     for (auto u : G[x][y]){
+//         if (visited[u.first][u.second] != 2){
+//             visited[u.first][u.second] = 2;
+//             if (!rotated){
+//                 cout << x << " " << y << " " << u.first << " " << u.second << "\n";
+//             }
+//             else {
+//                 cout << y << " " << x << " " << u.second << " " << u.first << "\n";
+//             }
+//             dfs(u.first, u.second);
+//         }
+//     }
+// }
+void bfs(int x, int y){
+    queue<pair<int, int>> s;
+    s.push({x, y});
+    while (!s.empty()){
+        pair<int, int> v = s.front(); s.pop();
+        for (auto u : G[v.first][v.second]){
+            if (visited[u.first][u.second] != 2){
+                visited[u.first][u.second] = 2;
+                if (!rotated){
+                    cout << v.first << " " << v.second << " " << u.first << " " << u.second << "\n";
+                }
+                else {
+                    cout << v.second << " " << v.first << " " << u.second << " " << u.first << "\n";
+                }
+                s.push(u);
             }
-            else {
-                cout << y << " " << x << " " << u.second << " " << u.first << "\n";
-            }
-            dfs(u.first, u.second);
         }
     }
 }
@@ -150,7 +169,7 @@ int main(){
         }
     }
     prepare_visited();
-    traverser a, b;
+    turtle a, b;
     a.y = b.y = (1+n)/2;
     int mid = (1+m)/2;
     a.x = b.x = mid;
@@ -169,7 +188,7 @@ int main(){
     }
     // print_visited();
 
-    left_traverser l; right_traverser r;
+    left_turtle l; right_turtle r;
     for (int j = 1; j <= n; j++){
         l.x = r.x = mid;
         l.y = r.y = j;
@@ -179,6 +198,6 @@ int main(){
     // print_visited();
 
     visited[1][1] = 2;
-    dfs(1, 1);
+    bfs(1, 1);
     return 0;
 }

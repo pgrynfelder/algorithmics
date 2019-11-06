@@ -40,6 +40,20 @@ def summarize(text: str) -> OrderedDict:
     summary['!'] = text.count('!')
     summary['?'] = text.count('?')
     summary["us"] = text.count("us")
+    whitespace = []
+    toadd = ""
+    for current in text:
+        if current.isspace():
+            toadd += current
+        else:
+            if toadd: whitespace.append(toadd)
+            toadd = ""
+    summary["spaces"] = sum(len(x) for x in whitespace)
+    summary["whitespaces"] = len(whitespace)
+    summary["mean_whitespace_length"] = summary["spaces"] / summary["whitespaces"]
+    summary["standard_deviation_whitespace_length"] = sqrt(
+        sum(pow(summary["mean_whitespace_length"] - len(x), 2) for x in whitespace) / summary["whitespaces"]
+    )
     sentences = [x for x in text.split(".") if len(x)]
     for letter in alphabet:
         summary[letter] = text.lower().count(letter)
@@ -69,7 +83,7 @@ def summarize(text: str) -> OrderedDict:
                   "standard_deviation_word_length",
                   "mean_sentence_length",
                   "standard_deviation_sentence_length",
-                  "characters"}
+                  "characters", "mean_whitespace_length", "standard_deviation_whitespace_length"}
     for key in summary.keys():
         if key not in exclusions:
             scaled_summary[key] = summary[key] / summary["characters"]
@@ -93,6 +107,7 @@ def dict2vec(summary):
 
 tests = [1,2,3,4]
 # tests = [4]
+# tests = [1, 2, 3]
 titles = {
     "Sienkiewicz": np.array([0,0,1]), 
     "Mickiewicz": np.array([1,0,0]), 
@@ -136,7 +151,9 @@ test_labels = np.array(test_labels)
 
 tf.keras.backend.clear_session()
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(10, input_shape=(50,), activation="sigmoid"),
+    tf.keras.layers.Dense(20, input_shape=(DATA_SIZE,), activation="relu"),
+    tf.keras.layers.Dense(20, input_shape=(DATA_SIZE,), activation="relu"),
+    tf.keras.layers.Dense(20, input_shape=(DATA_SIZE,), activation="relu"),
     tf.keras.layers.Dense(3, activation="softmax")
 ])
 model.compile(
@@ -147,4 +164,4 @@ model.compile(
 model.fit(examples, labels, epochs=1000, validation_data=(test_examples, test_labels))
 model.summary()
 
-model.save("model50x10x3.h5")
+model.save(f"relu{DATA_SIZE}x20x20x20x3.h5")

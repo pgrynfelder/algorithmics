@@ -1,21 +1,102 @@
 from math import gcd, floor, sqrt
+import numpy as np
 
-l = 1; r = 6*int(1e6)
-lcm = dict()
-for i in range(l, r+1):
-    current_lcm = i*(i+1)
-    for j in range(i+2, r+1):
-        current_lcm = (current_lcm * j) // gcd(current_lcm, j)
-        if current_lcm > 1e18: break
-        
-        if lcm.get(current_lcm, (1e19, 1e19)) > (i, j):
-            lcm[current_lcm] = (i, j)
+# l = 1; r = 6*int(1e6)
+# maxi = dict()
+# for k in range(3, 100):
+#     print(k)
+#     for i in range(l, r):
+#         lcm = 1;
+#         for j in range(i, i + k):
+#             lcm = lcm * j // gcd(lcm, j)
+#         if lcm <= 1e18:
+#             maxi[k] = i;
 
-""" 
-For sequence a, a + 1, ..., b
 
-lcm is a multiple of 
-b! / (a-1)! / (b-a)! 
+MAXI = {
+    3: 1259920,
+    4: 49488,
+    5: 7512,
+    6: 2215,
+    7: 930,
+    8: 504,
+    9: 280,
+    10: 216,
+    11: 140,
+    12: 110,
+    13: 88,
+    14: 65,
+    15: 54,
+    16: 51,
+    17: 40,
+    18: 39,
+    19: 34,
+    20: 33,
+    21: 25,
+    22: 24,
+    23: 20,
+    24: 19,
+    25: 18,
+    26: 17,
+    27: 16,
+    28: 15,
+    29: 14,
+    30: 13,
+    31: 12,
+    32: 11,
+    33: 10,
+    34: 9,
+    35: 8,
+    36: 7,
+    37: 6,
+    38: 5,
+    39: 4,
+    40: 3,
+    41: 2,
+    42: 1}
 
-so lcm >= b! / (a-1)! / (b-a)! 
-"""
+xd = np.empty(43, dtype=int)
+for k in MAXI.keys():
+    xd[k] = MAXI[k]
+
+lista = [0, 0, 0,
+         1259920,
+         49488,
+         7512,
+         2215,
+         930,
+         504,
+         280,
+         216,
+         140,
+         110,
+         88,
+         65,
+         54,
+         51,
+         40,
+         39,
+         34,
+         33,
+         25,
+         24,
+         20,
+         19,
+         18,
+         17,
+         16,
+         15,
+         14,
+         13,
+         12,
+         11,
+         10,
+         9,
+         8,
+         7,
+         6,
+         5,
+         4,
+         3,
+         2,
+         1]
