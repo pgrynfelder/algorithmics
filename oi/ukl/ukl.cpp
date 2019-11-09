@@ -4,10 +4,9 @@ using namespace std;
 int n, m, k;
 int current;
 constexpr int N = 1007, M = 1007;
-int visited[M][N];
+bool visited[M][N];
 bool rotated = false;
 
-// vector<pair<int, int>> G[M][N];
 void print(int a, int b, int c, int d){
     if (rotated){
         cout << b << " " << a << " " << d << " " << c << "\n";
@@ -27,8 +26,6 @@ struct turtle {
         for (int i = 0; i < 4; i++){
             if (dir == 0){
                 if (not visited[x][y+1]){
-                    // G[x][y].push_back({x,y+1}); 
-                    // G[x][y+1].push_back({x,y}); 
                     print(x, y, x, y + 1);
                     y++; 
                     visited[x][y] = 1;
@@ -37,8 +34,6 @@ struct turtle {
             }
             else if (dir == 2){
                 if (not visited[x][y-1]){
-                    // G[x][y].push_back({x,y-1}); 
-                    // G[x][y-1].push_back({x,y}); 
                     print(x, y, x, y - 1);
                     y--; 
                     visited[x][y] = 1; 
@@ -47,8 +42,6 @@ struct turtle {
             }
             else if (dir == 1){
                 if (not visited[x-1][y]){
-                    // G[x][y].push_back({x-1,y}); 
-                    // G[x-1][y].push_back({x,y}); 
                     print(x, y, x - 1, y);
                     x--; 
                     visited[x][y] = 1; 
@@ -57,8 +50,6 @@ struct turtle {
             }
             else if (dir == 3){
                 if (not visited[x+1][y]){
-                    // G[x][y].push_back({x+1,y}); 
-                    // G[x+1][y].push_back({x,y}); 
                     print(x, y, x + 1, y);
                     x++; 
                     visited[x][y] = 1; 
@@ -76,8 +67,6 @@ struct left_turtle {
     int x, y;
     bool fw(){
         if (not visited[x-1][y]){
-            // G[x][y].push_back({x-1,y}); 
-            // G[x-1][y].push_back({x,y}); 
             print(x, y, x - 1 , y);
             x--; 
             visited[x][y] = 1; 
@@ -91,8 +80,6 @@ struct right_turtle {
     int x, y;
     bool fw(){
         if (not visited[x+1][y]){
-            // G[x][y].push_back({x+1,y}); 
-            // G[x+1][y].push_back({x,y}); 
             print(x, y, x + 1 , y);
             x++; 
             visited[x][y] = 1; 
@@ -104,57 +91,12 @@ struct right_turtle {
 
 void prepare_visited(){
     for (int i = 0; i <= m+1; i++){
-        visited[i][0] = visited[i][n+1] = 2;
+        visited[i][0] = visited[i][n+1] = 1;
     }
     for (int i = 0; i <= n+1; i++){
-        visited[0][i] = visited[m+1][i] = 2;
+        visited[0][i] = visited[m+1][i] = 1;
     }
 }
-
-// void print_visited(){
-//     for (int j = n+1; j >= 0; j--){
-//         for (int i = 0; i <= m + 1; i++){
-//             cout << (int)visited[i][j] << " ";
-//         }
-//         cout << "\n";
-//     }
-//     cout << "\n";
-// }
-
-
-// void dfs(const int &x, const int &y){
-//     for (auto u : G[x][y]){
-//         if (visited[u.first][u.second] != 2){
-//             visited[u.first][u.second] = 2;
-//             if (!rotated){
-//                 cout << x << " " << y << " " << u.first << " " << u.second << "\n";
-//             }
-//             else {
-//                 cout << y << " " << x << " " << u.second << " " << u.first << "\n";
-//             }
-//             dfs(u.first, u.second);
-//         }
-//     }
-// }
-// void bfs(int x, int y){
-//     queue<pair<int, int>> s;
-//     s.push({x, y});
-//     while (!s.empty()){
-//         pair<int, int> v = s.front(); s.pop();
-//         for (auto u : G[v.first][v.second]){
-//             if (visited[u.first][u.second] != 2){
-//                 visited[u.first][u.second] = 2;
-//                 if (!rotated){
-//                     cout << v.first << " " << v.second << " " << u.first << " " << u.second << "\n";
-//                 }
-//                 else {
-//                     cout << v.second << " " << v.first << " " << u.second << " " << u.first << "\n";
-//                 }
-//                 s.push(u);
-//             }
-//         }
-//     }
-// }
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -199,7 +141,6 @@ int main(){
             current++;
         }
     }
-    // print_visited();
 
     left_turtle l; right_turtle r;
     for (int j = 1; j <= n; j++){
@@ -208,9 +149,5 @@ int main(){
         while(l.fw()) continue;
         while(r.fw()) continue;
     }
-    // print_visited();
-
-    // visited[1][1] = 2;
-    // bfs(1, 1);
     return 0;
 }
