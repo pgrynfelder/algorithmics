@@ -7,8 +7,15 @@ constexpr int N = 1007, M = 1007;
 int visited[M][N];
 bool rotated = false;
 
-vector<pair<int, int>> G[M][N];
-
+// vector<pair<int, int>> G[M][N];
+void print(int a, int b, int c, int d){
+    if (rotated){
+        cout << b << " " << a << " " << d << " " << c << "\n";
+    }
+    else {
+        cout << a << " " << b << " " << c << " " << d << "\n";
+    }
+}
 struct turtle {
     int x, y, dir; // 0 up 1 left 2 down 3 right
     int hit_count;
@@ -20,8 +27,9 @@ struct turtle {
         for (int i = 0; i < 4; i++){
             if (dir == 0){
                 if (not visited[x][y+1]){
-                    G[x][y].push_back({x,y+1}); 
-                    G[x][y+1].push_back({x,y}); 
+                    // G[x][y].push_back({x,y+1}); 
+                    // G[x][y+1].push_back({x,y}); 
+                    print(x, y, x, y + 1);
                     y++; 
                     visited[x][y] = 1;
                     return true;
@@ -29,8 +37,9 @@ struct turtle {
             }
             else if (dir == 2){
                 if (not visited[x][y-1]){
-                    G[x][y].push_back({x,y-1}); 
-                    G[x][y-1].push_back({x,y}); 
+                    // G[x][y].push_back({x,y-1}); 
+                    // G[x][y-1].push_back({x,y}); 
+                    print(x, y, x, y - 1);
                     y--; 
                     visited[x][y] = 1; 
                     return true;
@@ -38,8 +47,9 @@ struct turtle {
             }
             else if (dir == 1){
                 if (not visited[x-1][y]){
-                    G[x][y].push_back({x-1,y}); 
-                    G[x-1][y].push_back({x,y}); 
+                    // G[x][y].push_back({x-1,y}); 
+                    // G[x-1][y].push_back({x,y}); 
+                    print(x, y, x - 1, y);
                     x--; 
                     visited[x][y] = 1; 
                     return true;
@@ -47,8 +57,9 @@ struct turtle {
             }
             else if (dir == 3){
                 if (not visited[x+1][y]){
-                    G[x][y].push_back({x+1,y}); 
-                    G[x+1][y].push_back({x,y}); 
+                    // G[x][y].push_back({x+1,y}); 
+                    // G[x+1][y].push_back({x,y}); 
+                    print(x, y, x + 1, y);
                     x++; 
                     visited[x][y] = 1; 
                     return true;
@@ -65,8 +76,9 @@ struct left_turtle {
     int x, y;
     bool fw(){
         if (not visited[x-1][y]){
-            G[x][y].push_back({x-1,y}); 
-            G[x-1][y].push_back({x,y}); 
+            // G[x][y].push_back({x-1,y}); 
+            // G[x-1][y].push_back({x,y}); 
+            print(x, y, x - 1 , y);
             x--; 
             visited[x][y] = 1; 
             return true;
@@ -79,8 +91,9 @@ struct right_turtle {
     int x, y;
     bool fw(){
         if (not visited[x+1][y]){
-            G[x][y].push_back({x+1,y}); 
-            G[x+1][y].push_back({x,y}); 
+            // G[x][y].push_back({x+1,y}); 
+            // G[x+1][y].push_back({x,y}); 
+            print(x, y, x + 1 , y);
             x++; 
             visited[x][y] = 1; 
             return true;
@@ -123,25 +136,25 @@ void prepare_visited(){
 //         }
 //     }
 // }
-void bfs(int x, int y){
-    queue<pair<int, int>> s;
-    s.push({x, y});
-    while (!s.empty()){
-        pair<int, int> v = s.front(); s.pop();
-        for (auto u : G[v.first][v.second]){
-            if (visited[u.first][u.second] != 2){
-                visited[u.first][u.second] = 2;
-                if (!rotated){
-                    cout << v.first << " " << v.second << " " << u.first << " " << u.second << "\n";
-                }
-                else {
-                    cout << v.second << " " << v.first << " " << u.second << " " << u.first << "\n";
-                }
-                s.push(u);
-            }
-        }
-    }
-}
+// void bfs(int x, int y){
+//     queue<pair<int, int>> s;
+//     s.push({x, y});
+//     while (!s.empty()){
+//         pair<int, int> v = s.front(); s.pop();
+//         for (auto u : G[v.first][v.second]){
+//             if (visited[u.first][u.second] != 2){
+//                 visited[u.first][u.second] = 2;
+//                 if (!rotated){
+//                     cout << v.first << " " << v.second << " " << u.first << " " << u.second << "\n";
+//                 }
+//                 else {
+//                     cout << v.second << " " << v.first << " " << u.second << " " << u.first << "\n";
+//                 }
+//                 s.push(u);
+//             }
+//         }
+//     }
+// }
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -197,7 +210,7 @@ int main(){
     }
     // print_visited();
 
-    visited[1][1] = 2;
-    bfs(1, 1);
+    // visited[1][1] = 2;
+    // bfs(1, 1);
     return 0;
 }
