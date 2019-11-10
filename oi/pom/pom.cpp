@@ -18,7 +18,7 @@ struct range {
     range operator+ (int x){
         return range(l + x, r + x);
     }
-    range operator+ (range other){ // they're always intersecting or almost instersecting
+    range operator| (range other){ // they're always intersecting or almost instersecting
         if (other.empty()){
             return *this;
         }
@@ -43,32 +43,33 @@ int main(){
         n = A.size();
         for (int i = 0; i < n; i++){
             equalised[i+1] = equalised[i];
-            if (A[i] != B[i]) equalised[i + 1]++;
+            if (A[i] != B[i]) equalised[i+1]++;
         }
-        range current = range(1, 0);
+        range previous = range(1, 0);
+        range current = previous;
         int found = -1;
         for (int i = n - 1; i >= 0; i--){
             if (A[i] < B[i]){
-                if (B[i] > '1'){
-                    current = range(0, n - i) + (current + 1);
+                if (B[i] == '1'){ // we leave a unchanged or we change it to b
+                    current = range(0, n - i - 1) | (previous + 1); // so we can change every next
                 }
-                else {
-                    current = range(0, n - i - 1) + (current + 1);
+                else { // we can change a or leave it unchanged
+                    current = range(0, n - i);
                 }
             }
             if (A[i] == B[i]){
-                if (A[i] == '0'){
-                    current = current;
+                if (A[i] == '0'){ // a cannot be lowered so we leave it unchanged
+                    current = previous; // so we can only rely on previous settings
                 }
-                else {
-                    current = current + range(1, n - i);
+                else { // a can be lowered
+                    current = previous | range(1, n - i); // so we can leave it or change it and all next
                 }
             }
             if (A[i] > B[i]){
-                if (B[i] == '0'){
-                    current = current + 1;
+                if (B[i] == '0'){ // we can only change a to equal b
+                    current = previous + 1; // so we have previous enlargened by change of a
                 }
-                else {
+                else { // we can change a to lower than b (or equal but it doesnt matter since previous + 1 is always within range)
                     current = range(1, n - i);
                 }
             }
@@ -77,31 +78,52 @@ int main(){
                 found = i;
                 break;
             }
+            previous = current;
         }
         // for (int i = 0; i <= n; i++){
         //     cout << equalised[i] << " ";
         // }
+        cout << "found: " << found << "\n";
         if (found == -1){
             cout << "-1\n";
             continue;
         }
         C = A;
-        k -= equalised[found];
+        int j = k;
         for (int i = 0; i < found; i++){
-            C[i] = B[i];
+            C[i] = B[i]; 
+            if (A[i] != B[i]){
+                j--;
+            }
         }
-        C[found] = B[found] - 1; k--;
-        for (int i = found + 1; i < n and k > 0; i++){
+        // cout << "j: " << j << "\n"; 
+        if (j == 0){
+            // do nothing
+        }
+        else {
+            C[found] = B[found] - 1;
+        }
+        if (C[found] != A[found]) j--;
+
+        for (int i = found + 1; i < n and j > 0; i++){
             if (A[i] != '9'){
-                C[i] = '9'; k--;
+                C[i] = '9'; j--;
             }
         }
-        for (int i = n - 1; k > 0; i--){
+        for (int i = n - 1; j > 0; i--){ // coś tutaj nie działa
             if (A[i] == '9'){
-                C[i] = '9'; k--;
+                C[i] = '8'; j--;
             }
         }
-        cout << C << "\n";
+        // for (int i = 0; i < n; i++){
+        //     if (C[i] != B[i]){
+        //         cout << i << "\n";
+        //         // break;
+        //     }
+        // }
+        // cout << C << "\n";
     }
     return 0;
 }
+
+// gotta prepare separate cases: when keeping a and when changing
