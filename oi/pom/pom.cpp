@@ -13,7 +13,7 @@ struct range {
         return l > r;
     }
     bool find(int x){
-        return (l <= x and x < r);
+        return (l <= x and x <= r);
     }
     range operator+ (int x){
         return range(l + x, r + x);
@@ -32,11 +32,8 @@ struct range {
 };
 
 int equalised[N];
-string A;
-string B;
-int t;
-int n;
-int k;
+string A, B, C;
+int t, n, k;
 
 int main(){
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -81,7 +78,30 @@ int main(){
                 break;
             }
         }
-        cout << found << "\n";
+        // for (int i = 0; i <= n; i++){
+        //     cout << equalised[i] << " ";
+        // }
+        if (found == -1){
+            cout << "-1\n";
+            continue;
+        }
+        C = A;
+        k -= equalised[found];
+        for (int i = 0; i < found; i++){
+            C[i] = B[i];
+        }
+        C[found] = B[found] - 1; k--;
+        for (int i = found + 1; i < n and k > 0; i++){
+            if (A[i] != '9'){
+                C[i] = '9'; k--;
+            }
+        }
+        for (int i = n - 1; k > 0; i--){
+            if (A[i] == '9'){
+                C[i] = '9'; k--;
+            }
+        }
+        cout << C << "\n";
     }
     return 0;
 }
