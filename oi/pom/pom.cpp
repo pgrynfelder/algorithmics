@@ -73,17 +73,12 @@ int main(){
                     current = range(1, n - i);
                 }
             }
-            // cout << current.l << " " << current.r << "\n";
             if (current.find(k - equalised[i])){
                 found = i;
                 break;
             }
             previous = current;
         }
-        // for (int i = 0; i <= n; i++){
-        //     cout << equalised[i] << " ";
-        // }
-        // cout << "found: " << found << "\n";
         if (found == -1){
             cout << "-1\n";
             continue;
@@ -96,7 +91,6 @@ int main(){
                 j--;
             }
         }
-        // cout << "j: " << j << "\n"; 
         if (j == 0){
             // do nothing
         }
@@ -110,24 +104,15 @@ int main(){
                 C[i] = '9'; j--;
             }
         }
-        for (int i = n - 1; j > 0 and i > found; i--){ // coś tutaj nie działa
+        for (int i = n - 1; j > 0 and i > found; i--){ 
             if (A[i] == '9'){
                 C[i] = '8'; j--;
             }
         }
         if (j > 0){
-            // cout << "not enough changed!" << "\n";
             C[found]--; j--;
         }
-        // for (int i = 0; i < n; i++){
-        //     if (C[i] != B[i]){
-        //         cout << i << "\n";
-        //         // break;
-        //     }
-        // }
         cout << C << "\n";
     }
     return 0;
 }
-
-// gotta prepare separate cases: when keeping a and when changing
