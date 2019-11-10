@@ -83,7 +83,7 @@ int main(){
         // for (int i = 0; i <= n; i++){
         //     cout << equalised[i] << " ";
         // }
-        cout << "found: " << found << "\n";
+        // cout << "found: " << found << "\n";
         if (found == -1){
             cout << "-1\n";
             continue;
@@ -110,10 +110,14 @@ int main(){
                 C[i] = '9'; j--;
             }
         }
-        for (int i = n - 1; j > 0; i--){ // coś tutaj nie działa
+        for (int i = n - 1; j > 0 and i > found; i--){ // coś tutaj nie działa
             if (A[i] == '9'){
                 C[i] = '8'; j--;
             }
+        }
+        if (j > 0){
+            // cout << "not enough changed!" << "\n";
+            C[found]--; j--;
         }
         // for (int i = 0; i < n; i++){
         //     if (C[i] != B[i]){
@@ -121,7 +125,7 @@ int main(){
         //         // break;
         //     }
         // }
-        // cout << C << "\n";
+        cout << C << "\n";
     }
     return 0;
 }
