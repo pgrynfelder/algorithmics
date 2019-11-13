@@ -67,17 +67,21 @@ int main(){
     }
     cout << xd << "\n";
     while (m--){
-        int i; cin >> i;
-        i--;
-        if (t.read(i, i) == 0){
-            t.insert(i, 1);
-            xd += i - t.read(0, i-1) - t.read(i + 1, n - 1);
+        char c;
+        cin >> c;
+        if (c == 'X'){
+            int i; cin >> i;
+            i--;
+            if (t.read(i, i) == 0){
+                t.insert(i, 1);
+            }
+            else {
+                t.insert(i, 0);
+            }
         }
         else {
-            t.insert(i, 0);
-            xd -= i - t.read(0, i-1) - t.read(i + 1, n - 1);
-        }
-        cout << xd << "\n";
+            int a, b; cin >> a >> b;
+            a--; b--;
     }
     return 0;
 }
