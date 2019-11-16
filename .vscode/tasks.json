@@ -8,7 +8,7 @@
                 "-Wall",
                 "-Wextra",
                 "-Wconversion",
-                "-std=c++11",
+                "-std=c++17",
                 "-Wshadow",
                 "-Wno-sign-conversion",
                 "-fno-sanitize-recover=undefined", // stops execution

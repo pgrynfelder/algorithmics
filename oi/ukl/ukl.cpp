@@ -8,7 +8,7 @@ bool visited[M][N];
 bool rotated = false;
 
 void print(int a, int b, int c, int d){
-    if (rotated){
+    if (!rotated){
         cout << b << " " << a << " " << d << " " << c << "\n";
     }
     else {
@@ -17,7 +17,7 @@ void print(int a, int b, int c, int d){
 }
 struct turtle {
     int x, y, dir; // 0 up 1 left 2 down 3 right
-    int hit_count;
+    int hit_count = 0;
     bool fw(){
         if (hit_count >= 2){
             if (dir == 3) dir = 0;
@@ -32,18 +32,18 @@ struct turtle {
                     return true;
                 }
             }
-            else if (dir == 2){
-                if (not visited[x][y-1]){
-                    print(x, y, x, y - 1);
-                    y--; 
-                    visited[x][y] = 1; 
-                    return true;
-                }
-            }
             else if (dir == 1){
                 if (not visited[x-1][y]){
                     print(x, y, x - 1, y);
                     x--; 
+                    visited[x][y] = 1; 
+                    return true;
+                }
+            }
+            else if (dir == 2){
+                if (not visited[x][y-1]){
+                    print(x, y, x, y - 1);
+                    y--; 
                     visited[x][y] = 1; 
                     return true;
                 }
@@ -149,5 +149,12 @@ int main(){
         while(l.fw()) continue;
         while(r.fw()) continue;
     }
+
+    // for (int j = n+1; j >= 0; j--){
+    //     for (int i = 0; i <= m+1; i++){
+    //         cout << (int)visited[i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
     return 0;
 }
