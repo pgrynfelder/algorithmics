@@ -19,6 +19,8 @@ def wformat(w):
         result += "{"
         for y in x:
             toadd = "{0:.3f}".format(y).strip("0")
+            if (len(toadd) > 4):
+                toadd = "{0:.2f}".format(y).strip("0")
             if toadd == '.': toadd = "0"
             result += toadd + ","
         result = result.strip(",")
@@ -31,6 +33,8 @@ def tformat(t):
     result = "{"
     for y in t:
         toadd = "{0:.3f}".format(y).strip("0")
+        if (len(toadd) > 4):
+            toadd = "{0:.2f}".format(y).strip("0")
         if toadd == '.': toadd = "0"
         result += toadd + ","
     result = result.strip(",")
