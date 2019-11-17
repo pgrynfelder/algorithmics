@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#define print(a,b,c,d) if (!rotated){cout << b << " " << a << " " << d << " " << c << "\n";} else { cout << a << " " << b << " " << c << " " << d << "\n";}
 using namespace std;
 
 int n, m, k;
@@ -7,14 +8,6 @@ constexpr int N = 1007, M = 1007;
 bool visited[M][N];
 bool rotated = false;
 
-void print(int a, int b, int c, int d){
-    if (!rotated){
-        cout << b << " " << a << " " << d << " " << c << "\n";
-    }
-    else {
-        cout << a << " " << b << " " << c << " " << d << "\n";
-    }
-}
 struct turtle {
     int x, y, dir; // 0 up 1 left 2 down 3 right
     int hit_count = 0;
@@ -155,13 +148,13 @@ int main(){
     }
 
 
-    cout << "PRINTING TABLE\n";
-    cout << "CURRENT NODES: " << current + 1 << "SHOULD BE: " << n*m << "\n";
-    for (int j = n+1; j >= 0; j--){
-        for (int i = 0; i <= m+1; i++){
-            cout << (int)visited[i][j] << " ";
-        }
-        cout << "\n";
-    }
+    // cout << "PRINTING TABLE\n";
+    // cout << "CURRENT NODES: " << current + 1 << "SHOULD BE: " << n*m << "\n";
+    // for (int j = n+1; j >= 0; j--){
+    //     for (int i = 0; i <= m+1; i++){
+    //         cout << (int)visited[i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
     return 0;
 }
