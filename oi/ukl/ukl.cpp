@@ -2,14 +2,14 @@
 #define print(a,b,c,d) if (!rotated){cout << b << " " << a << " " << d << " " << c << "\n";} else { cout << a << " " << b << " " << c << " " << d << "\n";}
 using namespace std;
 
-int n, m, k;
-int current;
 constexpr int N = 1007, M = 1007;
+int n, m, k;
+int current = 0;
 bool visited[M][N];
 bool rotated = false;
 
 struct turtle {
-    int x, y, dir; // 0 up 1 left 2 down 3 right
+    int x = 0, y = 0, dir = 0; // 0 up 1 left 2 down 3 right
     int hit_count = 0;
     int triggered = false;
     bool fw(){
@@ -54,14 +54,14 @@ struct turtle {
                 }
             }
             hit_count++;
-            dir = (dir + 1) % 4;
+            dir = (dir + 1) & 3;
         }
         return false;
     }
 };
 
 struct left_turtle {
-    int x, y;
+    int x = 0, y = 0;
     bool fw(){
         if (not visited[x-1][y]){
             print(x, y, x - 1 , y);
@@ -74,7 +74,7 @@ struct left_turtle {
 };
 
 struct right_turtle {
-    int x, y;
+    int x = 0, y = 0;
     bool fw(){
         if (not visited[x+1][y]){
             print(x, y, x + 1 , y);
@@ -143,8 +143,8 @@ int main(){
     for (int j = 1; j <= n; j++){
         l.x = r.x = mid;
         l.y = r.y = j;
-        while(l.fw()) current++;
-        while(r.fw()) current++;
+        while(l.fw()){} // current++;
+        while(r.fw()){} // current++;
     }
 
 

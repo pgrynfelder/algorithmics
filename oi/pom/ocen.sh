@@ -1,10 +1,10 @@
 g++ -O3 -static -std=c++17 -o nww.e nww.cpp
 echo "Compilation finished"
-for ((i=1; i < 5; i++))
+for ((i=0; i < 2000; i++))
 do 
     echo $i
-    ./nww.e < test1/in/nww$i.in > mine.out
-    if diff -bwe mine.out test1/out/nww$i.out
+    ./a.out < test/in/pom$i.in > mine.out
+    if diff -bwe mine.out test/out/pom$i.out
     then
         continue
     else
