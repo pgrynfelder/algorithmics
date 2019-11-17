@@ -18,8 +18,12 @@ void print(int a, int b, int c, int d){
 struct turtle {
     int x, y, dir; // 0 up 1 left 2 down 3 right
     int hit_count = 0;
+    int triggered = false;
     bool fw(){
         if (hit_count >= 2){
+            triggered = true;
+        }
+        if (triggered){
             if (dir == 3) dir = 0;
             else if (dir == 1) dir = 2;
         }
@@ -103,7 +107,7 @@ int main(){
     cin.tie(0);
     cout.tie(0);
     cin >> n >> m >> k;
-    if (n & 1 or m & 1){
+    if ((n & 1) or (m & 1)){
         if (k >= n + m - 2 and k <= n*m-1){
             cout << "TAK\n";
         }
@@ -146,15 +150,18 @@ int main(){
     for (int j = 1; j <= n; j++){
         l.x = r.x = mid;
         l.y = r.y = j;
-        while(l.fw()) continue;
-        while(r.fw()) continue;
+        while(l.fw()) current++;
+        while(r.fw()) current++;
     }
 
-    // for (int j = n+1; j >= 0; j--){
-    //     for (int i = 0; i <= m+1; i++){
-    //         cout << (int)visited[i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
+
+    cout << "PRINTING TABLE\n";
+    cout << "CURRENT NODES: " << current + 1 << "SHOULD BE: " << n*m << "\n";
+    for (int j = n+1; j >= 0; j--){
+        for (int i = 0; i <= m+1; i++){
+            cout << (int)visited[i][j] << " ";
+        }
+        cout << "\n";
+    }
     return 0;
 }

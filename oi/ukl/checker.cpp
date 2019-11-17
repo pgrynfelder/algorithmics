@@ -4,7 +4,9 @@ using namespace std;
 constexpr int MAX_N = 1007;
 vector<pair<int, int>> G[MAX_N][MAX_N];
 int dist[MAX_N][MAX_N];
-pair<int, int> dfs(pair<int, int> v) {
+int nodes = 0;
+void dfs(pair<int, int> v) {
+    nodes++;
     for (auto u : G[v.first][v.second]){
         if (dist[u.first][u.second] == -1){
             dist[u.first][u.second] = dist[v.first][v.second] + 1;
@@ -46,18 +48,27 @@ int main(){
         G[c][d].push_back({a, b});
     }
 
-    while (getline(cin, s))
-    {   
-        if (s.size()){
-            cout << "BŁĄD: SYF NA OUTPUCIE\n";
-            return 0;
-        }
-    }
+    // while (getline(cin, s))
+    // {   
+    //     if (s.size()){
+    //         cout << "BŁĄD: SYF NA OUTPUCIE\n";
+    //         return 0;
+    //     }
+    // }
     fill(&(dist[0][0]), &(dist[MAX_N-1][MAX_N-1]), -1);
     dist[1][1] = 0;
     dfs(pair<int, int>(1, 1));
+    if (nodes != n*m){
+        cout << "TOO LITTLE NODES\n";
+    }
     auto maxx = find_max();
-    
+    fill(&(dist[0][0]), &(dist[MAX_N-1][MAX_N-1]), -1);
+    dist[maxx.first][maxx.second] = 0;
+    dfs(maxx);
+    maxx = find_max();
+    if (dist[maxx.first][maxx.second] != k){
+        cout << "BAD DIAMETER\n";
+    }
     cout << "GITUWA\n";
     return 0;
 }

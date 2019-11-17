@@ -1,13 +1,17 @@
-g++ -O3 -static -o ukl.e ukl.cpp
-g++ -O3 -static -o checker.e checker.cpp
+g++ ukl.cpp -O3 -static -std=c++17 -o ukl.e 
+g++ checker.cpp -O3 -static -std=c++17 -o checker.e
+g++ gen.cpp -O3 -static -std=c++17 -o gen.e 
 echo "Compilation finished"
-for ((i=1; i < 1000; i++))
+for ((i=1; i > -1; i++))
 do
+    echo $i
     python3 gen.py > 1.in
+    # gen.e > 1.in
     cp 1.in 1.out
     ./ukl.e < 1.in >> 1.out
     ./checker.e < 1.out > 2.out
-    if diff 2.out gituwa.out -b
+    # ./b < 1.out > 3.out
+    if diff 2.out gituwa.out -bwe
     then
         continue
     else
