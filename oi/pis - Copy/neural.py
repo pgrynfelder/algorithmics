@@ -19,7 +19,7 @@ titles = {
 examples = []
 labels = []
 for n in tests:
-    for j in range(0, 10):
+    for j in range(12, 16):
         j = str(j)
         j = j.zfill(3)
         with open(f"tests/{n}{j}.in") as test:
@@ -37,7 +37,7 @@ DATA_SIZE = examples.shape[1]
 test_examples = []
 test_labels = []
 for n in tests:
-    for j in range(10, 12):
+    for j in range(12, 16):
         j = str(j)
         j = j.zfill(3)
         with open(f"tests/{n}{j}.in") as test:
@@ -54,7 +54,6 @@ test_labels = np.array(test_labels)
 tf.keras.backend.clear_session()
 model = tf.keras.Sequential([
     tf.keras.layers.Dense(20, input_shape=(DATA_SIZE,), activation="relu"),
-    tf.keras.layers.Dense(20, input_shape=(DATA_SIZE,), activation="relu"),
     tf.keras.layers.Dense(3, activation="softmax")
 ])
 model.compile(
@@ -65,4 +64,4 @@ model.compile(
 model.fit(examples, labels, epochs=1000, validation_data=(test_examples, test_labels))
 model.summary()
 
-model.save(f"relu{DATA_SIZE}x20x20x3.h5")
+model.save(f"xxxrelu{DATA_SIZE}x20x3.h5")

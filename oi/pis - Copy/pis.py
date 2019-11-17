@@ -45,12 +45,15 @@ def process(s: str):
             process_word = False
             word_lenght += 1
             word_hash = ((P * word_hash) + ord(c.lower())) % MOD;
-        if c.isupper(): 
-            t[1] += 1
-            upper_char_distances.append(upper_char_dist)
-            upper_word_distances.append(upper_word_dist)
-            upper_char_dist = 0
-            upper_word_dist = 0
+            if c.isupper(): 
+                t[1] += 1
+                upper_char_distances.append(upper_char_dist)
+                upper_word_distances.append(upper_word_dist)
+                upper_char_dist = 0
+                upper_word_dist = 0
+            if c.lower() == 'u':
+                if s[i+1].lower() == 's':
+                    t[58] += 1
         if c.isdigit(): 
             t[2] += 1
         if c == ' ': 
@@ -76,9 +79,6 @@ def process(s: str):
         if c == '!':
             process_sentence = True
             t[12] += 1
-        if c.lower() == 'u':
-            if s[i+1].lower() == 's':
-                t[58] += 1
 
         sentence_char_length += 1
         upper_char_dist += 1
@@ -168,4 +168,6 @@ def translate(arr):
 if __name__ == "__main__":
     n = int(input())
     for i in range(n):
-        process(input())
+        xd = process(input())
+        for x in xd:
+            print(x)
