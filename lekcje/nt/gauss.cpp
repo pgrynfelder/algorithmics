@@ -2,17 +2,17 @@
 #define zero(x) (abs(x) <= eps)
 using namespace std;
 
-constexpr double eps = 1e-5;
+constexpr long double eps = 1e-6;
 constexpr int MAX_N = 1007, MAX_M = 1007;
 int n, m;
-vector<vector<double>> es;
-vector<double> solutions;
+vector<vector<long double>> es;
+vector<long double> sol;
 
 int main(){
-    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    // ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     cin >> n >> m;
-    es = vector<vector<double>>(n+1, vector<double>(m+2));
-    solutions = vector<double>(m+1);
+    es = vector<vector<long double>>(n+1, vector<long double>(m+2));
+    sol = vector<long double>(m+1);
     for (int i = 1; i <= n; i++){
         for (int j = 1; j <= m + 1; j++){
             cin >> es[i][j];
@@ -25,31 +25,40 @@ int main(){
                 swap(es[i], es[x]);
             }
         }
-        for (int i = x+1; i <= n; i++){
-            if (!zero(es[i][x])){
-                double k = es[x][x] / es[i][x];
-                for (int j = x; j <= m + 1; j++){
-                    es[i][j] -= es[x][j] / k;
+        for (int y = x+1; y <= n; y++){
+            if (!zero(es[y][x])){
+                for (int j = x+1; j <= m + 1; j++){
+                    es[y][j] -= es[x][j] * es[y][x] / es[x][x];
                 }
+                es[y][x] = 0;
             }
         }
-    }
-    for (int x = 1; x <= n; x++){
-        for (int i = 1; i <= m+1; i++){
-            cout << es[x][i] <<  " ";
-        }
-        cout << "\n";
     }
     for (int x = n; x >= 1; x--){
-        int i;
-        for (i = 1; i <= m+1; i++){
-            if (i == m + 1){
-                cout << "sprzeczny\n";
-                return 0;
+        int i = 1;
+        while (i <= m){
+            if (!zero(es[x][i])){
+                break;
             }
-            if (!zero(es[x][i])) break;
+            i++;
         }
-        
+        // cout << i << "\n"; 
+        if (i == m + 1 and !zero(es[x][i])){
+            cout << "sprzeczny\n"; return 0;
+        }
+        else if (i == m + 1 and zero(es[x][i])){
+            continue;
+        }
+        else {
+            sol[i] = es[x][m+1];
+            for (int j = i + 1; j <= m; j++){
+                sol[i] -= sol[j] * es[x][j];
+            }
+            sol[i] /= es[x][i];
+        }
+    }
+    for (int i = 1; i <= m; i++){
+        cout << fixed << setprecision(4) << sol[i] << "\n";
     }
     return 0;      
 }
