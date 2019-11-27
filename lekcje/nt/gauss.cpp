@@ -2,14 +2,14 @@
 #define zero(x) (abs(x) <= eps)
 using namespace std;
 
-constexpr long double eps = 1e-6;
+constexpr long double eps = 1e-4;
 constexpr int MAX_N = 1007, MAX_M = 1007;
 int n, m;
 vector<vector<long double>> es;
 vector<long double> sol;
 
 int main(){
-    // ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     cin >> n >> m;
     es = vector<vector<long double>>(n+1, vector<long double>(m+2));
     sol = vector<long double>(m+1);
@@ -30,7 +30,7 @@ int main(){
                 for (int j = x+1; j <= m + 1; j++){
                     es[y][j] -= es[x][j] * es[y][x] / es[x][x];
                 }
-                es[y][x] = 0;
+                es[y][x] -= es[x][x] * es[y][x] / es[x][x];
             }
         }
     }
@@ -50,11 +50,10 @@ int main(){
             continue;
         }
         else {
-            sol[i] = es[x][m+1];
+            sol[i] = es[x][m+1] / es[x][i];
             for (int j = i + 1; j <= m; j++){
-                sol[i] -= sol[j] * es[x][j];
+                sol[i] -= sol[j] * es[x][j] / es[x][i];
             }
-            sol[i] /= es[x][i];
         }
     }
     for (int i = 1; i <= m; i++){
