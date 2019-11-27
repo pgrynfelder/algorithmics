@@ -58,7 +58,7 @@ int main(){
         }
     }
     for (int i = 1; i <= m; i++){
-        cout << fixed << setprecision(4) << sol[i] << "\n";
+        cout << fixed << setprecision(6) << sol[i] << "\n";
     }
     return 0;      
 }
