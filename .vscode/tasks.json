@@ -9,6 +9,7 @@
                 "-Wextra",
                 "-Wconversion",
                 "-std=c++17",
+                "-static",
                 "-Wshadow",
                 "-Wno-sign-conversion",
                 "-fno-sanitize-recover=undefined", // stops execution
