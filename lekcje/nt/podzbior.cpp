@@ -38,12 +38,12 @@ int gauss(ull _d){
         }
         row++;    
     }
-    for (int x = 0; x < m; x++){
-        for (int i = 0; i < n + 1; i++){
-            cout << es[x][i] << " ";
-        }
-        cout << "\n";
-    }
+    //for (int x = 0; x < m; x++){
+    //    for (int i = 0; i < n + 1; i++){
+    //        cout << es[x][i] << " ";
+    //    }
+    //    cout << "\n";
+    //}
 
     for (int col = n-1; col >= 0; col--){
         if (where[col] == -1){
@@ -67,10 +67,10 @@ int gauss(ull _d){
         }
         // cout << res << "=" << expected[x] << "\n";
         if (res != expected[x]) {
-            for (int i = 0; i < n; i++){
-                cout << numbers[i] << ";";
-            }
-            cout << _d << "\n";
+            //for (int i = 0; i < n; i++){
+            //    cout << numbers[i] << ";";
+            //}
+            //cout << _d << "\n";
             return 0;
         }
     }
@@ -115,4 +115,11 @@ int main(){
 146
 125
 
+
+3 4
+1 4 12
+0
+6
+8
+9
 */
