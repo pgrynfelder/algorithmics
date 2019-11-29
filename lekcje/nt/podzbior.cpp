@@ -12,47 +12,31 @@ vector<ull> numbers;
 int gauss(ull _d){
     ull d = _d;
     vector<vector<int>> es = es_base;
-    vector<int> expected = vector<int>(m);
+    vector<int> expected(m);
     for (int j = 0; j < m; j++){
         expected[j] = es[j][n] = d & 1;
         d >>= 1;
     }
 
-    // for (int x = 0; x < m; x++){
-    //     for (int i = 0; i < n + 1; i++){
-    //         cout << es[x][i] << " ";
-    //     }
-    //     cout << "\n";
-    // }
-
-    for (int x = 0; x < n; x++){
-        bool found = false;
-        // for (int i = 0; i <= x; i++)
-        if (es[x][x]){
-            found = true;
-        }
-        for (int i = x+1; i < m; i++){
-            if (es[i][x] > es[x][x]){
-                swap(es[i], es[x]);
-                found = true;
+    vector<int> where(n, -1);
+    for (int col = 0, row = 0; col < n; col++){
+        for (int y = row + 1; y < m; y++){
+            if (es[y][col] > es[row][col]){
+                swap(es[y], es[row]);
             }
         }
-        if (found){
-            for (int y = 0; y < m; y++){
-                if (y != x and es[y][x] == 1){
-                    for (int j = x+1; j < n + 1; j++){
-                        es[y][j] ^= es[x][j];
-                    }
-                    es[y][x] = 0;
+        if (es[row][col] == 0){
+            continue;
+        }
+        where[col] = row;
+        for (int y = row + 1; y < m; y++){
+            if (es[y][col] == 1){
+                for (int x = col; x <= n; x++){
+                    es[y][x] ^= es[row][x];
                 }
             }
         }
-        else {
-            // cout << x << " NOT FOUND\n";
-            for (int y = 0; y < m; y++){
-                es[y][x] = 0;
-            }
-        }
+        row++;    
     }
     for (int x = 0; x < m; x++){
         for (int i = 0; i < n + 1; i++){
@@ -61,38 +45,27 @@ int gauss(ull _d){
         cout << "\n";
     }
 
-    for (int x = m-1; x >= 0; x--){
-        int i = 0;
-        while (i < n){
-            if (es[x][i] != 0){
-                break;
-            }
-            i++;
-        }
-        // cout << i << "\n"; 
-        if (i == n and es[x][i] != 0){
-            return 0;
-        }
-        else if (i == n and es[x][i] == 0){
-            continue;
+    for (int col = n-1; col >= 0; col--){
+        if (where[col] == -1){
+            sol[col] = 0;
         }
         else {
-            sol[i] = es[x][n];
-            for (int j = i + 1; j < n; j++){
-                sol[i] ^= sol[j] & es[x][j];
+            int row = where[col];
+            sol[col] = es[row][n];
+            for (int x = col+1; x < n; x++){
+                sol[col] ^= es[row][x] & sol[x];
             }
+
         }
     }
-
-
     // double checker
     for (int x = 0; x < m; x++){
         int res = 0;
         for (int i = 0; i < n; i++){
-            cout << sol[i] << ";" << es_base[x][i] << " ";
+            // cout << sol[i] << ";" << es_base[x][i] << " ";
             res ^= sol[i] & es_base[x][i];
         }
-        cout << res << "=" << expected[x] << "\n";
+        // cout << res << "=" << expected[x] << "\n";
         if (res != expected[x]) {
             for (int i = 0; i < n; i++){
                 cout << numbers[i] << ";";
@@ -128,3 +101,18 @@ int main(){
     }
     return 0;      
 }
+
+/*
+
+8 1
+144
+36
+180
+203
+125
+201
+0
+146
+125
+
+*/
