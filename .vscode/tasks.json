@@ -12,8 +12,8 @@
                 "-static",
                 "-Wshadow",
                 "-Wno-sign-conversion",
-                "-fno-sanitize-recover=undefined", // stops execution
-                "-fsanitize=undefined",
+                //"-fno-sanitize-recover=undefined", // stops execution
+                //"-fsanitize=undefined",
                 "-D_GLIBCXX_DEBUG",
                 "-g",
                 "${file}",
