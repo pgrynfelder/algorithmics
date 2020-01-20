@@ -85,7 +85,7 @@
         "queue": "cpp",
         "stack": "cpp"
     },
-    "python.pythonPath": "C:\\Users\\piotr\\Anaconda3\\python.exe",
+    "python.pythonPath": "/usr/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }
