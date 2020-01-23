@@ -26,7 +26,7 @@ ull fastpow(ull x, int p){
     if (p == 1){
         res = x;
     }
-    else if (p ^ 1){
+    else if (p & 1){
         res = x * fastpow(x, p-1);
     }
     else {

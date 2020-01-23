@@ -1,0 +1,5 @@
+n = int(1e4)
+print(n)
+print(" ".join("1" for x in range(n)))
+print(1)
+print("69 420 2137")

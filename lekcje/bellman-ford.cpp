@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+// bellman-ford ford-bellman ford bellman
 constexpr long long inf = 1e18, mininf = 1e17;
-
+constexpr int M = 1e4 + 7, N = 1e3 + 7;
 struct edge {
 	int u=0, v=0, c=0;
 	edge(int _u, int _v, int _c){
@@ -10,18 +10,15 @@ struct edge {
 	}
 	edge(){}
 };
-vector<edge> E;
-vector<long long> d;
-vector<int> p;
+edge E[M];
+long long d[N];
+edge* p[N];
 
 int n, m, q;
 
 int main(){
 	ios_base::sync_with_stdio(0); cin.tie(0);
 	cin >> n >> m >> q;
-	E.resize(m);
-	d.resize(n+1);
-	p.resize(n+1);
 	
 	for (int i = 0; i < m; i++){
 		int u, v, c;
@@ -29,17 +26,18 @@ int main(){
 		E[i] = {u, v, c};
 	}
 	while (q--){
-		fill(d.begin(), d.end()-1, +inf);
-		fill(p.begin(), p.end()-1, -1);
+		for (int i = 1; i <= n; i++){
+			d[i] = inf;
+			p[i] = 0;
+		}
 		int a, b;
 		cin >> a >> b;
-		p[a] = a;
 		d[a] = 0;	
-		for (int i = 1; i < n; i++){
-			for (edge e : E){
+		for (int i = 1; i < n; i++){ // n-1 repetitions
+			for (edge &e : E){
 				if (d[e.u] + e.c < d[e.v]){
 					d[e.v] = d[e.u] + e.c;
-					p[e.v] = e.u;
+					p[e.v] = &e;
 				}
 			}
 		}
@@ -47,15 +45,16 @@ int main(){
 			cout << "NIE\n";
 		}
 		else {
-			vector<int> res;
+			stack<int> res;
 			cout << d[b] << " ";
-			while(p[b] != b){
-				res.push_back(b);
-				b = p[b];
+			while (p[b]){
+				res.push(b);
+				b = p[b] -> u;
 			}
 			cout << res.size() << " ";
-			for (auto xd : res){
-				cout << xd << " ";
+			while (!res.empty()){
+				cout << res.top() << " ";
+				res.pop();
 			}
 			cout << "\n";
 		}
