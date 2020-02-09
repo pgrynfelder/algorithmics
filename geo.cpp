@@ -23,5 +23,5 @@ int main(){
 }
 
 // cross product
-// A x B = xa*yb - ya * xb
+// A x B = xa * yb - ya * xb
  
