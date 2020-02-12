@@ -66,12 +66,12 @@ int main(){
         int v = q.top().second;
         q.pop();
         if (t > distances[v]) continue;
-        for (edge e : G[v]){
+        for (edge &e : G[v]){
             ll mod = ((ll)e.t-t)%e.o;
             if (mod < 0) mod += e.o;
             if (mod+e.d+t < distances[e.w]){
-            q.push({-(mod+e.d+t), e.w});
-            distances[e.w] = mod+e.d+t;
+              q.push({-(mod+e.d+t), e.w});
+              distances[e.w] = mod+e.d+t;
             }
         }
     }
