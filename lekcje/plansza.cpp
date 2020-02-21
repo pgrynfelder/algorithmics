@@ -6,11 +6,13 @@ vector<pair<int,int>> G[N];
 bool deg[N];
 int n, m;
 int val[M];
+int last[N];
 bool visitedE[M];
 bool visitedV[N];
 stack<pair<int,int>> res;
 void euler(int v, int p){
-    for (auto e : G[v]){
+    for ( ; last[v] < G[v].size(); last[v]++){
+        auto &e = G[v][last[v]];
         if (!visitedE[e.second]){
             visitedE[e.second] = 1;
             visitedV[e.first] = 1;

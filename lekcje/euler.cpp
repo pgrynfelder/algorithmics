@@ -14,10 +14,12 @@ bool visitedE[M];
 stack<int> res;
 vector<edge> G[N];
 bool visitedV[N];
+int last[N];
 int deg[N];
 
 void euler(int v){
-    for (edge &e : G[v]){
+    for ( ; last[v] < G[v].size(); last[v]++ ){
+        auto &e = G[v][last[v]];
         if (!visitedE[e.i]){
             visitedE[e.i] = 1;
             visitedV[e.v] = 1;

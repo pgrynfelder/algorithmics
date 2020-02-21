@@ -9,10 +9,12 @@ bool occ[N];
 int n, m;
 
 int visitedV[N];
+int last[N];
 bool visitedE[M];
 
 void euler(int v, vector<int> &res){
-    for (auto e : G[v]){
+    for ( ; last[v] < G[v].size(); last[v]++ ){
+        auto &e = G[v][last[v]];
         if (!visitedE[e.second]){
             visitedE[e.second] = 1;
             visitedV[e.first] = 1;
