@@ -4,24 +4,22 @@ using namespace std;
 constexpr int N = 1e5 + 7, M = 1e6 + 7;
 
 vector<pair<int, int>> G[N];
-bool deg[N];
+int deg[N];
 bool occ[N];
 int n, m;
 
 int visitedV[N];
 bool visitedE[M];
 
-vector<int> res;
-void euler(int v){
+void euler(int v, vector<int> &res){
     for (auto e : G[v]){
         if (!visitedE[e.second]){
             visitedE[e.second] = 1;
             visitedV[e.first] = 1;
-            euler(e.first);
+            euler(e.first, res);
         }
     }
     res.push_back(v);
-    // cout << v << " ";
 }
 
 int main(){
@@ -34,27 +32,29 @@ int main(){
         int a, b, c, d;
         cin >> a >> b >> c >> d;
         if (c ^ d){
-            deg[a] ^= 1; deg[b] ^= 1;
+            deg[a]++; deg[b]++;
             G[a].emplace_back(b, i);
             G[b].emplace_back(a, i);
         }
     }
     for (int i = 1; i <= n; i++){
-        if (deg[i]){
+        if (deg[i] & 1){
             cout << "NIE\n"; return 0;
         }
     }
     vector<stack<int>> XD;
     for (int i = 1; i <= n; i++){
-        if (!visitedV[i]){
+        if (!visitedV[i] and deg[i] > 0){
             visitedV[i] = 1;
-            euler(i);
-            // res.pop();
+            vector<int> res;
+            euler(i, res);
             stack<int> rEzUlTaT;
             for (int v : res){
                 if (occ[v]){
                     XD.emplace_back();
+
                     XD.rbegin() -> push(v);
+
                     while(rEzUlTaT.top() != v){
                         occ[rEzUlTaT.top()] ^= 1;
                         XD.rbegin() -> push(rEzUlTaT.top());
@@ -67,7 +67,6 @@ int main(){
                 occ[v] ^= 1;
                 rEzUlTaT.push(v);
             }
-            res.clear();
         }
     }
     cout << XD.size() << "\n";
