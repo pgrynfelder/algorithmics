@@ -56,9 +56,8 @@ struct matrix {
 		}
 	}
 	
-	matrix operator *(matrix other) {
-		matrix res(h, other.w);
-		
+	matrix operator* (matrix &other) {
+		matrix res(h, other.w);		
 		for(int j = 0; j < res.w; ++j) {
 			int cur = 0;
 			for(int i = 0; i < other.h; ++i) {

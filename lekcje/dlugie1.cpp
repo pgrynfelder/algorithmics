@@ -1,61 +1,140 @@
 #include<bits/stdc++.h>
 using namespace std;
-constexpr int mod = 1e9 + 7;
-struct M {
-    vector<vector<int>> tab;
-    int height, width;
-    M(int _width, int _height){
-        height = _height;
-        width = _width;
-        tab = vector<vector<int>>(width, vector<int>(height));
-    }
-    M operator* (M other){
-        M xd = M(other.width, height); 
-        for (int j = 0; j < xd.height; j++){
-            for (int i = 0; i < xd.width; i++){
-                for (int x = 0; x < width; x++){
-                    xd.tab[i][j] = ((long long)xd.tab[i][j] + (long long)tab[x][j] * other.tab[i][x]) % mod;
-                }
-            }
-        }
-        return xd;
-    }
-    void print(){
-            for (int i = 0; i < width; i++){
-        for (int j = 0; j < height; j++){
-                cout << tab[i][j] << " ";
-            }
-            cout << "\n";
-        }
-    }
+
+constexpr int N = 20, Q = 1e7 + 7, powN = (1<<20)+7;
+struct matrix {
+	int h, w;
+	int a[N];
+	
+	matrix() {
+		h = w = 0;
+	}
+	
+	matrix(int _h, int _w) {
+		h = _h, w = _w;
+		
+		for(int i = 0; i < h; ++i) {
+			a[i] = 0;
+		}
+	}
+	matrix operator* (matrix &other) {
+		matrix result(h, other.w);		
+		for(int j = 0; j < result.w; ++j) {
+			int current = 0;
+			for(int i = 0; i < other.h; ++i) {
+				if(other.a[i] >> j & 1) {
+					current |= 1 << i;
+				}
+			}
+			
+			for(int i = 0; i < result.h; ++i) {
+				if(a[i] & current) {
+					result.a[i] |= 1 << j;
+				}
+			}
+		}
+		
+		return result;
+	}
 };
-
-M power(M m, long long n){
-    M res = M(m.width, m.height);
-    for (int i = 0; i < res.width; i++) res.tab[i][i] = 1;
-    while (n > 0) {
-        if(n & 1) {
-            res = res * m;
-        }
-        m = m * m;
-        n >>= 1;
-    }
-    return res;
+int res[Q];
+int n, m, q;
+unsigned long long S, A, B, L;
+unsigned long long ramdom(){
+	S = S * A + B;
+	return S;
 }
-
+matrix pre[powN];
+char hexa[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+int beg[N];
+int cyc[N];
+int found[powN];
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
-    M xd(5, 5);
-    xd.tab[1][2] = 1;
-    xd.tab[2][3] = 1;
-    xd.tab[3][1] = 1;
-    xd.tab[3][4] = 1;
-    xd.print();
-    xd = xd * xd;
-    xd.print();
+	
+	cin >> n >> m;
+	pre[0] = matrix(n,n);
+	for (int i = 0; i < n; i++){
+		pre[0].a[i] = 1 << i;
+	}
+	pre[1] = matrix(n,n);
+	for (int i = 1; i <= m; i++){
+		int u, v;
+		cin >> u >> v;
+		pre[1].a[u] |= 1 << v; // can pass from u to v
+	}
+	cin >> q >> S >> A >> B >> L;
+	for (int i = 2; i < powN; i++){
+		pre[i] = pre[i-1] * pre[1];
+	}
+	for (int i = 0; i < powN; i++){
+		found[i] = -1;
+	}
+	for (int u = 0; u < n; u++){
+		for (int i = 0; i < powN; i++){
+			if (found[pre[i].a[u]] >= 0){
+				beg[u] = found[pre[i].a[u]];
+				cyc[u] = i - found[pre[i].a[u]];
+				for (int j = 0; j <= i; j++){
+					found[pre[u].a[j]] = -1;
+				}
+				break;
+			}
+			found[pre[i].a[u]] = i; 
+		}
+	}
+	for (int i = 0; i < q; i++){
+		unsigned long long u, v, k;
+		u = ramdom() % n;
+		v = ramdom() % n;
+		k = ramdom() % L;
+		if (k > beg[u]){
+			k = ((k - beg[u]) % cyc[u]) + beg[u];
+		}
+		
+		res[i] = (pre[k].a[u] >> v) & 1;
+	}
+	reverse(&(res[0]), &(res[q]));
+	string answer = "";
+	for (int i = 0; i < q; i+= 4){
+		int current = 0;
+		for (int j = 3; j >= 0; j--){
+			current = (current << 1) | res[i + j];
+		}
+		answer += hexa[current];
+	}
+	string s = "";
+	bool beginning = true;
+	for (int i = answer.size() - 1; i >= 0; i--){
+		if (answer[i] == '0' and beginning == true) continue;
+		s += answer[i];
+		beginning = false;
+	}
+	if (s.size()){
+		cout << s;
+	}
+	else {
+		cout << 0;
+	}
+	/*cout << "\n"; for (int i = 0; i < q; i++) cout << res[i];
+	cout << "\n";
+	for (int i = 0; i < n; i++)
+		cout << beg[i] << " " << cyc[i] << "\n";
+    */
     return 0;
 }
- 
+
+/*
+5 5 
+0 2
+2 4
+4 1
+1 0
+3 2
+9 1 5720387 2015 5
+
+23 
+(000100011)
+*/
