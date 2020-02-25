@@ -78,7 +78,7 @@ int main(){
 				beg[u] = found[pre[i].a[u]];
 				cyc[u] = i - found[pre[i].a[u]];
 				for (int j = 0; j <= i; j++){
-					found[pre[u].a[j]] = -1;
+					found[pre[j].a[u]] = -1;
 				}
 				break;
 			}
