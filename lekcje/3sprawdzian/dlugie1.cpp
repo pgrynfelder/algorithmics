@@ -66,14 +66,16 @@ int main(){
 		pre[1].a[u] |= 1 << v; // can pass from u to v
 	}
 	cin >> q >> S >> A >> B >> L;
-	for (int i = 2; i < powN; i++){
-		pre[i] = pre[i-1] * pre[1];
-	}
 	for (int i = 0; i < powN; i++){
 		found[i] = -1;
 	}
+    int computed = 1;
 	for (int u = 0; u < n; u++){
 		for (int i = 0; i < powN; i++){
+            while (i > computed){
+                computed++;
+                pre[computed] = pre[computed-1] * pre[1];
+            }
 			if (found[pre[i].a[u]] >= 0){
 				beg[u] = found[pre[i].a[u]];
 				cyc[u] = i - found[pre[i].a[u]];
