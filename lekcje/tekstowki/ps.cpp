@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 constexpr int N = 2e5 + 7;
-string s;
 int ps[2*N];
+string s;
 
 int main(){
 	ios_base::sync_with_stdio(0);
