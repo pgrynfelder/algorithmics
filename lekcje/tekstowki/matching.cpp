@@ -1,13 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
 constexpr int N = 1e6 + 7, oo = 1e9 + 7;
-constexpr bool DEBUG = 1;
+constexpr bool DEBUG = 0;
 
 int ps[2*N], t[2*N];
 int n, m;
 
 bool valid(int smaller, int bigger, int i, int j){
     if (DEBUG) cout << "validation: " << smaller << " " <<  bigger << " " << i << " " << j << "\n";
+    
+    if (t[j+1] == oo - 1 or t[i] == oo - 1) return false;
     return (bigger==oo or t[i] < t[i-j+bigger-1]) and (smaller== -oo or t[i] > t[i-j+smaller-1]);
 }
 
