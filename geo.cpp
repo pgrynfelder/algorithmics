@@ -28,7 +28,7 @@ int main(){
 }
 
 // cross product
-// A x B = xa * yb - ya * xb
+// A x B = xa * yb - ya * xb = a * b * sin
 // 
 // dot produtto
-// A * B = xa * xb + ya * yb
+// A * B = xa * xb + ya * yb = a * b * cos
