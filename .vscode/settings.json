@@ -85,7 +85,8 @@
         "queue": "cpp",
         "stack": "cpp"
     },
-    "python.pythonPath": "/home/pitek/miniconda3/bin/python",
+    "python.pythonPath": "/home/pitek/.pyenv/versions/3.7.9/bin/python",
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black"
 }
