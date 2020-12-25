@@ -10,7 +10,7 @@ int f(int x){
 
 int bs(int x, int l, int r){
     while (l < r){
-        int mid = (l+r)/2;
+        int mid = l + (r-l)/2;
         if (f(mid) >= x){
             r = mid;
         }
