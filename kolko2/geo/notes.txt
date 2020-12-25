@@ -1,0 +1,30 @@
+*** iloczyn wektorowy ***
+a x b = Xa*Yb - Xb*Ya = a * b * sin
+mozna wykorzystac do porownania kata miedzy wektorami
+kat liczymy obrot a do b
+jezeli a x b > 0: kat > 0 ergo b wystepuje po a
+jezeli a x b < 0: kat < 0 ergo a wystepuje po b
+
+
+mozna sprawdzac po ktorej stronie odcinka bedzie punkt i wgl tym
+      X
+     -
+    -
+   -
+  -
+ -
+A------------B
+
+AB x AX < 0 wiec X po lewej
+
+*** otoczka wypukla ***
+
+najskrajniejszy na lewo
+sortujemy po katach reszte
+idziemy po kolei
+jezeli kolejny jest na lewo od poprzedniego, to przyps
+cofamy sie az bedzie po prawej stronie rozpatrywaego odcinka wywalajac wszsytkie nie fajen po drodze
+
+pole trojkata z dowolnego punktu, bierzemy + jak nowszy na prawo od starszy katowo, - jak na lewo
+
+
