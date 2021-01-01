@@ -90,7 +90,8 @@
         "queue": "cpp",
         "stack": "cpp",
         "any": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "bit": "cpp"
     },
     "python.pythonPath": "/home/pitek/.pyenv/versions/3.7.9/bin/python",
     "python.linting.pylintEnabled": true,
