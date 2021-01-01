@@ -6,18 +6,17 @@ constexpr int N = 1e6 + 7;
 int n, m, q;
 
 // scaling t
-vector<long long> T;
+vector<int> T;
 
 // edges
 struct edge {
-    int a = 0, b = 0;
-    long long t = 0;
+    int a = 0, b = 0, t = 0;
 };
 vector<edge> E;
 
 // find union
 int fu[N];
-int fusize[N];
+int furank[N];
 
 int f(int a) {
     if (fu[a] != a)
@@ -27,16 +26,18 @@ int f(int a) {
 void u(int a, int b) {
     a = f(a);
     b = f(b);
-    if (fusize[b] > fusize[a])
+    if (a == b)
+        return;
+    if (furank[a] < furank[b])
         swap(a, b);
     fu[b] = a;
-    fusize[a] += fusize[b];
+    if (furank[a] == furank[b])
+        furank[a]++;
 }
 
 // queries
-// vector<int> Q;
 int L[N], R[N], A[N], B[N];
-int mid(int i) { return L[i] + (R[i] - L[i]) / 2; }
+int mid(const int i) { return L[i] + (R[i] - L[i]) / 2; }
 
 int main() {
     ios_base::sync_with_stdio(0);
@@ -47,7 +48,7 @@ int main() {
     E.resize(m);
     for (edge &e : E) {
         cin >> e.a >> e.b >> e.t;
-        e.t = -e.t;
+        e.t = -e.t; // reverse timeflow
         T.emplace_back(e.t);
     }
     sort(T.begin(), T.end());
@@ -57,7 +58,6 @@ int main() {
     cin >> q;
     for (int i = 1; i <= q; i++) {
         cin >> A[i] >> B[i];
-        // Q.emplace_back(i);
         R[i] = m + 1;
         L[i] = 0;
     }
@@ -69,43 +69,34 @@ int main() {
         run = false;
         for (int a = 1; a <= n; a++) {
             fu[a] = a;
-            fusize[a] = 1;
+            furank[a] = 1;
         }
 
-        // sort(Q.begin(), Q.end(),
-        //      [](const int &a, const int &b) { return mid(a) < mid(b); });
-
         // bucket sort
-        vector<int> Q;
         vector<vector<int>> bucket(m + 2);
         for (int i = 1; i <= q; i++) {
             bucket[mid(i)].emplace_back(i);
         }
-        for (auto &val : bucket) {
-            for (int i : val) {
-                Q.emplace_back(i);
-            }
-        }
 
         // proper binsearch
         auto it = E.begin();
-        for (int i : Q) {
-            if (L[i] < R[i]) {
-                run = true;
-                while (it != E.end() and it->t < mid(i)) {
-                    u(it->a, it->b);
-                    it++;
-                }
-                if (f(A[i]) != f(B[i])) {
-                    L[i] = mid(i) + 1;
-                } else {
-                    R[i] = mid(i);
+        for (int midi = 0; midi < bucket.size(); midi++)
+            for (int i : bucket[midi]) {
+                if (L[i] < R[i]) {
+                    while (it != E.end() and it->t < midi) {
+                        u(it->a, it->b);
+                        it++;
+                    }
+                    if (f(A[i]) != f(B[i])) {
+                        L[i] = midi + 1;
+                    } else {
+                        R[i] = midi;
+                    }
+                    run = run or L[i] < R[i];
                 }
             }
-        }
     }
     for (int i = 1; i <= q; i++) {
-        // cout << L[i] << ": ";
         if (L[i] >= m + 1) {
             cout << "nigdy.\n";
         } else {
