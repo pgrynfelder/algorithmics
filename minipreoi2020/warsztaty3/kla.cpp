@@ -1,4 +1,5 @@
-// spójne find union fu rozpójnianie reverse czas odwrotnie od tyłu time parallel binsearch
+// spójne find union fu rozpójnianie reverse czas odwrotnie od tyłu time
+// parallel binsearch
 #include <bits/stdc++.h>
 using namespace std;
 constexpr int N = 1e6 + 7;
@@ -73,7 +74,7 @@ int main() {
 
         // sort(Q.begin(), Q.end(),
         //      [](const int &a, const int &b) { return mid(a) < mid(b); });
-        //
+
         // bucket sort
         vector<int> Q;
         vector<vector<int>> bucket(m + 2);
