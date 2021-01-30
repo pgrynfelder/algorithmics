@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 // bellman-ford ford-bellman ford bellman
+// shortest paths even if there are negative paths, can find negative cycle
 constexpr long long inf = 1e18, mininf = 1e17;
 constexpr int M = 1e4 + 7, N = 1e3 + 7;
 struct edge {
@@ -33,7 +34,7 @@ int main(){
 		int a, b;
 		cin >> a >> b;
 		d[a] = 0;	
-		for (int i = 1; i < n; i++){ // n-1 repetitions
+		for (int i = 1; i < n; i++){ // n-1 repetitions -> if can still be relaxed, there's negative cycle
 			for (edge &e : E){
 				if (d[e.u] + e.c < d[e.v]){
 					d[e.v] = d[e.u] + e.c;
