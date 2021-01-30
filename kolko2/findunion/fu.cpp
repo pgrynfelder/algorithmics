@@ -17,6 +17,9 @@ void u(int x, int y){
 	FU[b] = a;
 }
 
+// robimy furank[n] = 0
+// jezeli laczymy rowne rangi, to podbijamy range
+
 /* 
  * jak mamy zadanko na usuwanie krawedzi to dobrze wklepac te co zawsze sa i dodawac te co mialyby byc odjete i robic fu
  */
