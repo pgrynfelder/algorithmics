@@ -15,7 +15,7 @@ void kmp(int n) { // n-długość sklejenia tekstu i wzorca
     for (int i = 2; i <= n; i++) {
         while (j and s[i] != s[j + 1])
             j = p[j];
-        if (s[i] >= s[j + 1])
+        if (s[i] == s[j + 1])
             j++;
         p[i] = j;
     }
