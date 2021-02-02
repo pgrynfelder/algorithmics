@@ -84,7 +84,7 @@ struct tree {
         if (a <= m) set(x, a, b, l, m, i << 1);
         if (m + 1 <= b) set(x, a, b, m + 1, r, i << 1 ^ 1);
     }
-    void set(T x, int a, int b) { return set(x, a, b, 0, n - 1, 1); }
+    void set(int a, int b, int x) { return set(x, a, b, 0, n - 1, 1); }
     T get(int i) {
         i += n;
         T res = def;
@@ -141,16 +141,16 @@ int main() {
         int c = lca(a, b);
 
         while (chain[a] != chain[c]) {
-            t.set(cost, where[head[chain[a]]], where[a]);
+            t.set(where[head[chain[a]]], where[a], cost);
             a = jump[head[chain[a]]][0];
         }
-        if (c != a) t.set(cost, where[c] + 1, where[a]);
+        if (c != a) t.set(where[c] + 1, where[a], cost);
 
         while (chain[b] != chain[c]) {
-            t.set(cost, where[head[chain[b]]], where[b]);
+            t.set(where[head[chain[b]]], where[b], cost);
             b = jump[head[chain[b]]][0];
         }
-        if (c != b) t.set(cost, where[c] + 1, where[b]);
+        if (c != b) t.set(where[c] + 1, where[b], cost);
     }
 
     auto [res1, res2] = solve(1);
