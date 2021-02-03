@@ -10,11 +10,10 @@ pair<ll, ll> dp[2][2];
 void solve(ll x) {  // x - encouragment modifier
     dp[1][0] = dp[1][1] = {0, 0};
     for (int i = 2; i <= n; i++) {
-        dp[i & 1][1] = dp[i & 1][0] = min(dp[i & 1 ^ 1][0], dp[i & 1 ^ 1][1]);
-        if (dp[i & 1 ^ 1][0].first + d[i] - d[i - 1] - x < dp[i & 1][1].first) {
-            dp[i & 1][1] = {dp[i & 1 ^ 1][0].first + d[i] - d[i - 1] - x,
-                            dp[i & 1 ^ 1][0].second + 1};
-        }
+        dp[i & 1][0] = min(dp[i & 1 ^ 1][0], dp[i & 1 ^ 1][1]);
+        dp[i & 1][1] =
+            min(dp[i & 1][0], {dp[i & 1 ^ 1][0].first + d[i] - d[i - 1] - x,
+                               dp[i & 1 ^ 1][0].second + 1});
     }
 }
 
@@ -44,7 +43,7 @@ int main() {
         }
         solve(l - 1);
         auto [cost, cnt] = dp[n & 1][1];
-        // * k <- ważne bardzo
+        // * k <- ważne bardzo żeby to nie było cnt
         cout << cost + (l - 1) * k << "\n";
     }
 
