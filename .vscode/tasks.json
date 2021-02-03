@@ -13,7 +13,7 @@
                 "-Wshadow",
                 "-Wno-sign-conversion",
                 //"-fno-sanitize-recover=undefined", // stops execution
-                //"-fsanitize=undefined",
+                "-fsanitize=undefined",
                 "-D_GLIBCXX_DEBUG",
                 "-g",
                 "${file}",
