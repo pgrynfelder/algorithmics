@@ -1,4 +1,4 @@
-// turbomatching
+// turbomatching based on turbomatching from kubin.w.staszic.waw.pl
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -36,14 +36,11 @@ int main() {
         match[a] = -1;
     }
     while (true) {
-        for (int u = 0; u < n; u++)
-            visited[u] = 0;
+        for (int u = 0; u < n; u++) visited[u] = 0;
         bool any = false;
         for (int u = 0; u < n; u++)
-            if (match[u] == -1 and augment(u))
-                any = true;
-        if (not any)
-            break;
+            if (match[u] == -1 and augment(u)) any = true;
+        if (not any) break;
     }
     return 0;
 }

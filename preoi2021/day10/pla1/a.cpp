@@ -1,3 +1,6 @@
+// zamiatanie sweeping segseg drzewo (lepiej było użyć seta i na pałę matchować
+// wysokość, moje dostało 81)
+
 #include <bits/stdc++.h>
 using namespace std;
 
