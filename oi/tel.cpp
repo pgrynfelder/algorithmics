@@ -1,24 +1,23 @@
 // arithmetic sequence tree
-// beware of long longs or smth
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long ll;
+
 struct seq {
-    int a = 0, r = 0; // long long suggested here or death
+    ll a = 0, r = 0;
     seq operator+(const seq &b) const { return {a + b.a, r + b.r}; }
     void operator+=(const seq &b) { a += b.a, r += b.r; }
 
     // a + (a + r) + ... + a + (k-1) r
-    long long sum(const int k) {
-        return (2 * a + ((long long)k - 1) * r) * k / 2;
-    }
+    ll sum(const int k) { return (2 * a + (k - 1) * r) * k / 2; }
 };
 
 constexpr seq def = {0, 0};
 
 struct tree {
     int n = 1;
-    vector<long long> t;
+    vector<ll> t;
     vector<seq> prop;
     tree(int _n) {
         while (n < _n) n *= 2;
@@ -38,19 +37,19 @@ struct tree {
     void update(int i) { t[i] = t[2 * i] + t[2 * i + 1]; }
 
     int a, b;
-    long long _get(int l, int r, int i) {
+    ll _get(int l, int r, int i) {
         if (a <= l and r <= b) {
             return t[i];
         }
 
         push(r - l + 1, i);
         int m = (l + r) / 2;
-        long long res = 0;
+        ll res = 0;
         if (a <= m) res += _get(l, m, i * 2);
         if (m + 1 <= b) res += _get(m + 1, r, i * 2 + 1);
         return res;
     }
-    long long get(int _a, int _b) {
+    ll get(int _a, int _b) {
         a = _a, b = _b;
         return _get(0, n - 1, 1);
     }
@@ -70,27 +69,50 @@ struct tree {
     }
     void add(int _a, int _b, seq _x) {
         a = _a, b = _b, x = _x;
+        if (a > b) return;
+        if (a < 0) {
+            x = {x.a - a * x.r, x.r};
+            a = 0;
+        }
         return _add(0, n - 1, 1);
     }
 };
 
+int n, m;
+constexpr int N = 3e5 + 7;
+int s[N], a[N];
+
 int main() {
-    // ios_base::sync_with_stdio(0);
-    // cin.tie(0);
-    // cout.tie(0);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    int n = 8;
-    tree t(n);
+    cin >> n >> m;
+    tree t(n + 1);
 
-    while (true) {
-        seq x;
-        int a, b;
-        cin >> a >> b >> x.a >> x.r;
-        t.add(a, b, x);
-        for (int i = 0; i < n; i++) {
-            cout << t.get(i, i) << " ";
+    while (m--) {
+        char c;
+        cin >> c;
+        if (c == 'P') {
+            int i;
+            cin >> i;
+            cin >> s[i] >> a[i];
+            int lo = s[i] % a[i];
+            int l = i - s[i] / a[i];
+            t.add(l, i, {lo, a[i]});
+            t.add(i + 1, i + (i - l), {s[i] - a[i], -a[i]});
+        } else if (c == 'U') {
+            int i;
+            cin >> i;
+            int lo = s[i] % a[i];
+            int l = i - s[i] / a[i];
+            t.add(l, i, {-lo, -a[i]});
+            t.add(i + 1, i + (i - l), {-(s[i] - a[i]), a[i]});
+        } else if (c == 'Z') {
+            int l, r;
+            cin >> l >> r;
+            cout << (long long)(t.get(l, r) / (r - l + 1)) << '\n';
         }
-        cout << "\n";
     }
 
     return 0;
