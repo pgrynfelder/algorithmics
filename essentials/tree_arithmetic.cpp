@@ -1,4 +1,5 @@
 // arithmetic sequence tree
+// beware of long longs or smth
 #include <bits/stdc++.h>
 using namespace std;
 
