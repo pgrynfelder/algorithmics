@@ -1,3 +1,12 @@
+/*
+PREOI 2021 FINAL
+ROZ
+https://sio2.staszic.waw.pl/c/preoi-2021/p/roz/
+
+Piotr Grynfelder
+*/
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
