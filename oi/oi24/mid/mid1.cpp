@@ -1,4 +1,6 @@
 /*
+DOES NOT WORK
+
 OI24
 MID
 https://szkopul.edu.pl/problemset/problem/wrTmzO9-dzEbLtsRUCdMV2_W/site/?key=statement
