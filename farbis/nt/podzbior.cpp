@@ -1,4 +1,4 @@
-// podzbior, subset, subset of given xor
+// podzbior, subset, subset of given xor, independent set
 #include<bits/stdc++.h>
 using namespace std;
 typedef unsigned long long ull;
