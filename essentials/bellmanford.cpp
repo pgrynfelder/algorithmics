@@ -1,3 +1,10 @@
+/*
+
+bellman-ford
+finds shortes path in graph with negative edges in O(nm)
+
+*/
+
 #include<bits/stdc++.h>
 using namespace std;
 
