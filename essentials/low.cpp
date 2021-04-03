@@ -13,29 +13,31 @@ vector<int> g[N];
 int dist[N], low[N];
 
 bool visited[N];
-void dfs(int a, int p) {
+int p[N];
+void dfs(int a) {
     low[a] = dist[a];
     for (int b : g[a]) {
-        if (b != p) {
+        if (b != p[a]) {
             low[a] = min(low[a], dist[b]);
         }
 
         if (!visited[b]) {
             visited[b] = true;
             dist[b] = dist[a] + 1;
-            dfs(b, a);
+            p[b] = a;
+            dfs(b);
             low[a] = min(low[a], low[b]);
         }
     }
 }
 
-bool is_bridge(int a, int b){
-    return dist[a] < low[b];
-}
+bool is_bridge(int a, int b) { return dist[a] < low[b]; }
 
-bool is_articulation_point(int a){
+bool is_articulation_point(int a) {
     if (a == 1 and g[a].size() > 1) return true;
-    if (a != 1) for (int b : g[a]) if (dist[a] <= low[b]) return true;
+    if (a != 1)
+        for (int b : g[a])
+            if (dist[a] <= low[b] and b != p[a]) return true;
     return false;
 }
 
