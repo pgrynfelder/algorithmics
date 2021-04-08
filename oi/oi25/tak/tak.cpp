@@ -3,6 +3,7 @@ TAK
 25 OI
 https://szkopul.edu.pl/problemset/problem/pxbqUTPy3IuPDul9FdT2_Sth/site/?key=statement
 
+100/100
 Piotr Grynfelder
 */
 #include <bits/stdc++.h>
