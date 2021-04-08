@@ -45,7 +45,7 @@ case III: a_i < a_j -> x >= (b_j - b_i) / (a_i - a_j)  -> add to lower bound
 */
 
 int invalid = 0;
-multiset<Q> lb, ub;
+multiset<Q> lb = {Q(1, 1e9)}, ub = {Q(1e9)};
 
 void add_constraints(int i, int j) {
     if (i == 0 or j == 0) return;
@@ -87,8 +87,6 @@ int main() {
     for (int i = 1; i <= n; i++) {
         cin >> ranking[i];
     }
-    lb.emplace(1, 1e9);
-    ub.emplace(1e9);
     for (int i = 1; i <= n; i++) {
         add_constraints(ranking[i], ranking[i + 1]);
     }
@@ -99,12 +97,12 @@ int main() {
         int i, j;
         cin >> i >> j;
 
-        for (auto x : set<int>{i - 1, i, j - 1, j})
+        for (int x : set<int>{i - 1, i, j - 1, j})
             remove_constraints(ranking[x], ranking[x + 1]);
 
         swap(ranking[i], ranking[j]);
 
-        for (auto x : set<int>{i - 1, i, j - 1, j})
+        for (int x : set<int>{i - 1, i, j - 1, j})
             add_constraints(ranking[x], ranking[x + 1]);
 
         check();
