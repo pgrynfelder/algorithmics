@@ -3,3 +3,5 @@
 *.e
 *.in
 *.out
+*Zone.Identifier
+*.zip
