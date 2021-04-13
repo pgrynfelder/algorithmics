@@ -14,7 +14,6 @@
         "-fsanitize=undefined",
         "-D_GLIBCXX_DEBUG",
         "-std=c++17",
-        "-static",
         "-g",
         "${file}",
         "-o",
