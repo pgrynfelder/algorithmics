@@ -1,41 +1,69 @@
 {
-    "tasks": [
-        {
-            "type": "shell",
-            "label": "g++ build active file",
-            "command": "/usr/bin/g++",
-            "args": [
-                "-Wall",
-                "-Wextra",
-                "-Wconversion",
-                "-Wshadow",
-                "-Wno-sign-conversion",
-                "-fsanitize=address",
-                "-fsanitize=undefined",
-                "-D_GLIBCXX_DEBUG",
-                "-std=c++17",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.e"
-            ],
-            "options": {
-                "cwd": "/usr/bin"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "type": "shell",
-            "label": "run",
-            "command": "${fileDirname}/${fileBasenameNoExtension}.e",
-            "problemMatcher": [],
-            "presentation": {
-            "focus": true
-            }
-        }
-    ],
-    "version": "2.0.0"
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "g++ build active file for debug",
+      "command": "/usr/bin/g++",
+      "args": [
+        "-Wall",
+        "-Wextra",
+        "-Wconversion",
+        "-Wshadow",
+        "-Wno-sign-conversion",
+        "-fsanitize=address",
+        "-fsanitize=undefined",
+        "-D_GLIBCXX_DEBUG",
+        "-std=c++17",
+        "-static",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}.e"
+      ],
+      "options": {
+        "cwd": "/usr/bin"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "run",
+      "command": "${fileDirname}/${fileBasenameNoExtension}.e",
+      "problemMatcher": [],
+      "presentation": {
+        "focus": true
+      }
+    },
+
+    {
+      "type": "shell",
+      "label": "g++ build active file",
+      "command": "/usr/bin/g++",
+      "args": [
+        "-o3",
+        "-static",
+        "-g",
+        "-std=c++17",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}.e"
+      ],
+      "options": {
+        "cwd": "/usr/bin"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "shell",
+      "label": "run",
+      "command": "${fileDirname}/${fileBasenameNoExtension}.e",
+      "problemMatcher": [],
+      "presentation": {
+        "focus": true
+      }
+    }
+  ],
+  "version": "2.0.0"
 }
