@@ -1,3 +1,5 @@
+// gaussian elimination
+
 #include<bits/stdc++.h>
 #define zero(x) (abs(x) <= eps)
 using namespace std;
